@@ -18,7 +18,7 @@ If not already provided, ask the user for a detailed description of the product 
 If this is a feature added to an existing codebase, explore it to understand the current state. Verify the user's assumptions. Do not skip this if there is relevant existing code.
 
 ### Step 3 — Ask clarifying questions (REQUIRED)
-Ask the user a minimum of 5 clarifying questions before writing anything. Do not start writing the PRD until you have answers.
+Ask the user a minimum of 10 clarifying questions before writing anything. Do not start writing the PRD until you have answers.
 
 Cover at minimum:
 - Who are the users? Any specific personas or edge cases?
@@ -41,7 +41,7 @@ Use the template below. Save the result as `docs/PRD.md` (or the path the user s
 
 ## Rules
 
-- **Language**: Always write the PRD in English, regardless of the language the user communicates in.
+- **Language**: Always write the PRD in Polish, regardless of the language the user communicates in.
 - **No marketing language**: No fluff, no "users will be delighted", no vague superlatives. Every sentence must be useful to a developer or agent implementing the product.
 - **No technical implementation details**: Do not specify frameworks, libraries, file paths, SDK choices, database schemas, or code patterns. Those belong in the ADR (Architecture Decision Records). Mention functional behavior only.
 - **No testing strategy**: Test cases and testing decisions belong in the ADR, not the PRD.
