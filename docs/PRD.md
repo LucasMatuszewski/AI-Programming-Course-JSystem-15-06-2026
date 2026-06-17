@@ -225,7 +225,8 @@ MVP obejmuje panel obslugi zgloszen, ale nie definiuje rozbudowanego zarzadzania
 
 | Document name | File path | When it is used |
 |---|---|---|
-| Regulamin reklamacji | Do uzupelnienia | Uzywany przez chat do wyjasniania odmowy, jesli dokument zostanie dostarczony |
+| Polityka reklamacji | docs/polityka-reklamacji.md | Uzywana przez chat do wyjasniania odmowy i interpretacji zgloszenia reklamacyjnego |
+| Polityka zwrotu | docs/polityka-zwrotu.md | Uzywana do odroznienia zwrotu od reklamacji, jesli taki scenariusz zostanie wlaczony do zakresu |
 
 ---
 
