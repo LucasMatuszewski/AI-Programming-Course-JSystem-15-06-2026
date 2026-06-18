@@ -1,5 +1,7 @@
 "use client";
 
+import { FormEvent, useState } from "react";
+
 type ServiceClaim = {
   id: string;
   brand: string;
@@ -14,10 +16,62 @@ type ServiceClaim = {
   } | null;
 };
 
-export function LoginPanel() {
+export function ServicePanelApp() {
+  const [claims, setClaims] = useState<ServiceClaim[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleLogin(input: { email: string; password: string }) {
+    setError(null);
+    const loginResponse = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(input),
+    });
+
+    if (!loginResponse.ok) {
+      setError("Nieprawidłowy email lub hasło.");
+      return;
+    }
+
+    const claimsResponse = await fetch("/api/service/claims");
+    if (!claimsResponse.ok) {
+      setError("Nie udało się pobrać zgłoszeń.");
+      return;
+    }
+
+    const data = (await claimsResponse.json()) as { items: ServiceClaim[] };
+    setClaims(data.items);
+  }
+
+  if (claims) {
+    return <ServiceDashboard claims={claims} />;
+  }
+
+  return <LoginPanel error={error} onLogin={handleLogin} />;
+}
+
+export function LoginPanel({
+  error,
+  onLogin,
+}: {
+  error?: string | null;
+  onLogin?: (input: { email: string; password: string }) => Promise<void>;
+}) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    await onLogin?.({
+      email: String(formData.get("email") ?? ""),
+      password: String(formData.get("password") ?? ""),
+    });
+  }
+
   return (
     <section className="mx-auto grid min-h-screen max-w-md content-center px-5 py-10 text-text-primary">
-      <form className="rounded-lg border border-border-default bg-background-panel p-6">
+      <form
+        className="rounded-lg border border-border-default bg-background-panel p-6"
+        onSubmit={handleSubmit}
+      >
         <p className="text-xs font-black uppercase text-brand-primary">
           Serwis
         </p>
@@ -40,6 +94,7 @@ export function LoginPanel() {
             type="password"
           />
         </label>
+        {error ? <p className="mt-4 text-sm text-brand-error">{error}</p> : null}
         <button
           className="mt-6 h-12 w-full rounded-sm bg-brand-primary px-4 text-sm font-black uppercase text-text-on-accent"
           type="submit"
@@ -63,6 +118,11 @@ export function ServiceDashboard({ claims }: { claims: ServiceClaim[] }) {
         </h1>
       </header>
       <div className="mx-auto grid max-w-6xl gap-4">
+        {claims.length === 0 ? (
+          <p className="rounded-lg border border-border-default bg-background-panel p-5 text-text-secondary">
+            Brak zgłoszeń do obsługi.
+          </p>
+        ) : null}
         {claims.map((claim) => (
           <article
             className="rounded-lg border border-border-default bg-background-panel p-5"

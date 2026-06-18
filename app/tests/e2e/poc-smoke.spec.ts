@@ -18,7 +18,8 @@ test("panel obsługi jest dostępny jako osobny widok", async ({ page }) => {
   await page.goto("/service");
 
   await expect(
-    page.getByRole("heading", { name: /panel sprzedawcy i serwisu/i }),
+    page.getByRole("heading", { name: /panel obsługi/i }),
   ).toBeVisible();
-  await expect(page.getByText(/Po zalogowaniu panel pobierze zgłoszenia/i)).toBeVisible();
+  await expect(page.getByLabel(/email/i)).toBeVisible();
+  await expect(page.getByLabel(/hasło/i)).toBeVisible();
 });

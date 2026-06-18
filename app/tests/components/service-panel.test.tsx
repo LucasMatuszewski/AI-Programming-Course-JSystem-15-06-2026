@@ -1,9 +1,17 @@
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { LoginPanel, ServiceDashboard } from "@/components/service/service-panel";
+import {
+  LoginPanel,
+  ServiceDashboard,
+  ServicePanelApp,
+} from "@/components/service/service-panel";
 
 describe("service panel", () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it("renders staff login form in Polish", () => {
     render(<LoginPanel />);
 
@@ -41,5 +49,52 @@ describe("service panel", () => {
     expect(
       screen.getByText(/Opis wskazuje na zdarzenie zewnętrzne/i),
     ).toBeInTheDocument();
+  });
+
+  it("logs in and loads service claims from API", async () => {
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValueOnce(
+      new Response(JSON.stringify({ user: { email: "serwis@example.com" } }), {
+        status: 200,
+      }),
+    ).mockResolvedValueOnce(
+      new Response(
+        JSON.stringify({
+          items: [
+            {
+              id: "claim-1",
+              brand: "Trek",
+              model: "Marlin 7",
+              status: "preliminarily_accepted",
+              damageType: "mechanical",
+              problemDescription: "Pęknięta rama.",
+              damageCircumstances: "Podczas normalnej jazdy.",
+              latestAssessment: {
+                decision: "accepted",
+                reasoningSummary: "Opis wskazuje na normalną jazdę.",
+              },
+            },
+          ],
+        }),
+        { status: 200 },
+      ),
+    );
+
+    render(<ServicePanelApp />);
+    fireEvent.change(screen.getByLabelText(/email/i), {
+      target: { value: "serwis@example.com" },
+    });
+    fireEvent.change(screen.getByLabelText(/hasło/i), {
+      target: { value: "tajne-haslo" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: /zaloguj/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText(/Trek Marlin 7/i)).toBeInTheDocument();
+    });
+    expect(fetchMock).toHaveBeenCalledWith(
+      "/api/auth/login",
+      expect.objectContaining({ method: "POST" }),
+    );
+    expect(fetchMock).toHaveBeenCalledWith("/api/service/claims");
   });
 });
