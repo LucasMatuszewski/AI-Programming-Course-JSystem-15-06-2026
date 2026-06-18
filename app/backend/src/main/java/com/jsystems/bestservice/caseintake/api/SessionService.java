@@ -1,0 +1,164 @@
+package com.jsystems.bestservice.caseintake.api;
+
+import com.jsystems.bestservice.common.api.ApiErrorCode;
+import com.jsystems.bestservice.common.api.ApiException;
+import com.jsystems.bestservice.common.config.UploadProperties;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.util.unit.DataSize;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.time.Instant;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+
+@Service
+class SessionService {
+
+    private static final Set<String> REQUEST_TYPES = Set.of("complaint", "return");
+    private static final Set<String> EQUIPMENT_CATEGORIES = Set.of(
+            "laptop",
+            "desktop_pc",
+            "smartphone",
+            "tablet",
+            "monitor",
+            "tv",
+            "printer",
+            "headphones",
+            "smartwatch",
+            "gaming_console",
+            "computer_accessory",
+            "other_electronics"
+    );
+    private static final Set<String> ALLOWED_IMAGE_TYPES = Set.of(
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+    );
+
+    private final UploadProperties uploadProperties;
+
+    SessionService(UploadProperties uploadProperties) {
+        this.uploadProperties = uploadProperties;
+    }
+
+    SessionResponse createSession(CreateSessionRequest request) {
+        validateSessionRequest(request);
+        return decidedSession(UUID.randomUUID(), normalize(request.getRequestType()));
+    }
+
+    SessionResponse createImageAttempt(UUID sessionId, MultipartFile image) {
+        validateImage(image);
+        throw new ApiException(
+                ApiErrorCode.SESSION_STATE_CONFLICT,
+                HttpStatus.CONFLICT,
+                "Nie można wykonać tej operacji dla aktualnego stanu zgłoszenia."
+        );
+    }
+
+    SessionResponse getSession(UUID sessionId) {
+        throw new ApiException(
+                ApiErrorCode.SESSION_NOT_FOUND,
+                HttpStatus.NOT_FOUND,
+                "Nie znaleziono zgłoszenia."
+        );
+    }
+
+    private void validateSessionRequest(CreateSessionRequest request) {
+        Map<String, String> fieldErrors = new java.util.LinkedHashMap<>();
+        String requestType = normalize(request.getRequestType());
+        String equipmentCategory = normalize(request.getEquipmentCategory());
+
+        if (!REQUEST_TYPES.contains(requestType)) {
+            fieldErrors.put("requestType", "Wybierz typ zgłoszenia: reklamacja albo zwrot.");
+        }
+        if (!EQUIPMENT_CATEGORIES.contains(equipmentCategory)) {
+            fieldErrors.put("equipmentCategory", "Wybierz obsługiwaną kategorię sprzętu.");
+        }
+        if ("complaint".equals(requestType) && isBlank(request.getReason())) {
+            fieldErrors.put("reason", "Podaj powód reklamacji.");
+        }
+        if (!fieldErrors.isEmpty()) {
+            throw new ApiException(
+                    ApiErrorCode.VALIDATION_FAILED,
+                    HttpStatus.BAD_REQUEST,
+                    "Popraw błędy w formularzu.",
+                    fieldErrors
+            );
+        }
+
+        validateImage(request.getImage());
+    }
+
+    private void validateImage(MultipartFile image) {
+        if (image == null || image.isEmpty()) {
+            throw new ApiException(
+                    ApiErrorCode.VALIDATION_FAILED,
+                    HttpStatus.BAD_REQUEST,
+                    "Popraw błędy w formularzu.",
+                    Map.of("image", "Dodaj jedno zdjęcie produktu.")
+            );
+        }
+        String contentType = normalize(image.getContentType());
+        if (!ALLOWED_IMAGE_TYPES.contains(contentType)) {
+            throw new ApiException(
+                    ApiErrorCode.UNSUPPORTED_IMAGE_TYPE,
+                    HttpStatus.UNSUPPORTED_MEDIA_TYPE,
+                    "Dozwolone są tylko pliki JPG, PNG albo WebP."
+            );
+        }
+        DataSize maxImageSize = uploadProperties.maxImageSize();
+        if (image.getSize() > maxImageSize.toBytes()) {
+            throw new ApiException(
+                    ApiErrorCode.IMAGE_TOO_LARGE,
+                    HttpStatus.PAYLOAD_TOO_LARGE,
+                    "Plik jest za duży. Maksymalny rozmiar zdjęcia to " + maxImageSize.toMegabytes() + " MB."
+            );
+        }
+    }
+
+    private SessionResponse decidedSession(UUID sessionId, String requestType) {
+        DecisionResponse decision = new DecisionResponse(
+                "human_verification_required",
+                null,
+                null,
+                "Zgłoszenie zostało przyjęte do dalszej weryfikacji.",
+                "Poczekaj na dalszą informację w czacie.",
+                "stub_contract",
+                1
+        );
+        ChatMessageResponse firstMessage = new ChatMessageResponse(
+                UUID.randomUUID(),
+                "SYSTEM",
+                "Dzień dobry. Zgłoszenie zostało przyjęte do dalszej weryfikacji.",
+                1,
+                "INITIAL_DECISION",
+                Instant.now()
+        );
+        return new SessionResponse(
+                sessionId,
+                requestType,
+                "DECIDED",
+                null,
+                1,
+                2,
+                decision,
+                null,
+                List.of(firstMessage)
+        );
+    }
+
+    private String normalize(String value) {
+        if (value == null) {
+            return "";
+        }
+        return value.trim().toLowerCase(Locale.ROOT);
+    }
+
+    private boolean isBlank(String value) {
+        return value == null || value.isBlank();
+    }
+}
