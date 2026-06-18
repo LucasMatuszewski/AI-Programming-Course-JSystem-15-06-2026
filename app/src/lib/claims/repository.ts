@@ -28,6 +28,11 @@ type AssessmentCreateInput = {
   serviceReviewRecommended: boolean;
 };
 
+type ChatMessageCreateInput = {
+  role: Prisma.ChatMessageCreateInput["role"];
+  content: string;
+};
+
 export function createClaimRepository(prisma: PrismaClient) {
   return {
     createClaimWithAssessment(input: {
@@ -42,7 +47,7 @@ export function createClaimRepository(prisma: PrismaClient) {
             create: input.photos,
           },
           assessments: {
-            create: input.assessment,
+            create: toAssessmentData(input.assessment),
           },
         },
         include: {
@@ -123,7 +128,7 @@ export function createClaimRepository(prisma: PrismaClient) {
             create: input.photos,
           },
           assessments: {
-            create: input.assessment,
+            create: toAssessmentData(input.assessment),
           },
         },
         include: {
@@ -134,5 +139,26 @@ export function createClaimRepository(prisma: PrismaClient) {
         },
       });
     },
+
+    appendChatMessage(claimId: string, message: ChatMessageCreateInput) {
+      return prisma.chatMessage.create({
+        data: {
+          claim: { connect: { id: claimId } },
+          ...message,
+        },
+      });
+    },
+  };
+}
+
+function toAssessmentData(input: AssessmentCreateInput) {
+  return {
+    decision: input.decision,
+    damageType: input.damageType,
+    confidence: input.confidence,
+    reasoningSummary: input.reasoningSummary,
+    photoEvidenceSummary: input.photoEvidenceSummary,
+    descriptionEvidenceSummary: input.descriptionEvidenceSummary,
+    serviceReviewRecommended: input.serviceReviewRecommended,
   };
 }

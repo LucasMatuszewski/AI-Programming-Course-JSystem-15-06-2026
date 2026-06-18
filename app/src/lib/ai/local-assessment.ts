@@ -1,14 +1,8 @@
-import type { AssessmentConfidence, AssessmentDecision, DamageType } from "@/lib/claims/domain";
-
-export type AssessmentResult = {
-  decision: AssessmentDecision;
-  damageType: DamageType;
-  confidence: AssessmentConfidence;
-  reasoningSummary: string;
-  photoEvidenceSummary: string;
-  descriptionEvidenceSummary: string;
-  serviceReviewRecommended: boolean;
-};
+import {
+  MANDATORY_ASSESSMENT_DISCLAIMER,
+  type AiAdapter,
+  type AssessmentResult,
+} from "@/lib/ai/types";
 
 export function assessClaimLocally(input: {
   problemDescription: string;
@@ -31,6 +25,7 @@ export function assessClaimLocally(input: {
       descriptionEvidenceSummary:
         "Klient opisał upadek, przewrócenie, uderzenie albo kolizję.",
       serviceReviewRecommended: true,
+      mandatoryDisclaimer: MANDATORY_ASSESSMENT_DISCLAIMER,
     };
   }
 
@@ -45,6 +40,7 @@ export function assessClaimLocally(input: {
       descriptionEvidenceSummary:
         "Klient wskazał normalnej jazdy jako okoliczność powstania uszkodzenia.",
       serviceReviewRecommended: true,
+      mandatoryDisclaimer: MANDATORY_ASSESSMENT_DISCLAIMER,
     };
   }
 
@@ -59,6 +55,7 @@ export function assessClaimLocally(input: {
       descriptionEvidenceSummary:
         "Potrzebne jest doprecyzowanie, czy uszkodzenie powstało podczas normalnego użycia, upadku albo kolizji.",
       serviceReviewRecommended: true,
+      mandatoryDisclaimer: MANDATORY_ASSESSMENT_DISCLAIMER,
     };
   }
 
@@ -72,5 +69,27 @@ export function assessClaimLocally(input: {
     descriptionEvidenceSummary:
       "Opis nie wskazuje jednoznacznie, czy uszkodzenie wynika z normalnego użytkowania.",
     serviceReviewRecommended: true,
+    mandatoryDisclaimer: MANDATORY_ASSESSMENT_DISCLAIMER,
+  };
+}
+
+export function createLocalAiAdapter(): AiAdapter {
+  return {
+    async assessClaim(input) {
+      return assessClaimLocally({
+        problemDescription: input.problemDescription,
+        damageCircumstances: input.damageCircumstances,
+        photoCount: input.photos.length,
+      });
+    },
+    async streamRejectedClaimChat(input) {
+      return (async function* () {
+        yield [
+          "Wstępna odmowa wynika z opisu zgłoszenia i dostępnych materiałów.",
+          input.assessment.reasoningSummary,
+          "Dalsze czynności reklamacyjne może przejąć sprzedawca lub serwis.",
+        ].join(" ");
+      })();
+    },
   };
 }
