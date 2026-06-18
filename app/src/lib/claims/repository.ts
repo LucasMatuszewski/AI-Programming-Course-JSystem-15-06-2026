@@ -104,5 +104,35 @@ export function createClaimRepository(prisma: PrismaClient) {
         data: { status },
       });
     },
+
+    updateClaimAfterClarification(input: {
+      claimId: string;
+      clarification: string;
+      status: Prisma.ClaimUpdateInput["status"];
+      damageType: Prisma.ClaimUpdateInput["damageType"];
+      photos: PhotoCreateInput[];
+      assessment: AssessmentCreateInput;
+    }) {
+      return prisma.claim.update({
+        where: { id: input.claimId },
+        data: {
+          clarification: input.clarification,
+          status: input.status,
+          damageType: input.damageType,
+          photos: {
+            create: input.photos,
+          },
+          assessments: {
+            create: input.assessment,
+          },
+        },
+        include: {
+          photos: true,
+          assessments: {
+            orderBy: { createdAt: "desc" },
+          },
+        },
+      });
+    },
   };
 }
