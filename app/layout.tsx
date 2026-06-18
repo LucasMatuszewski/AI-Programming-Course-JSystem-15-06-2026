@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { CaseProvider } from "./components/CaseProvider";
 
 export const metadata: Metadata = {
   title: "Asystent serwisowy — Pomoc techniczna",
@@ -18,7 +19,12 @@ export default function RootLayout({
   return (
     <html lang="pl" className="h-full">
       <body className="min-h-full flex flex-col bg-bg-base text-text-primary antialiased">
-        {children}
+        {/*
+          CaseProvider mounted at root layout so client state survives
+          client-side navigation between / (form) and /chat (AC-27).
+          State is ephemeral — cleared on reload or "Nowe zgłoszenie" (AC-28).
+        */}
+        <CaseProvider>{children}</CaseProvider>
       </body>
     </html>
   );

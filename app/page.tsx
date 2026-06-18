@@ -1,25 +1,19 @@
-import Image from "next/image";
-import { PrimaryButton } from "./components/PrimaryButton";
+import { FormPage } from "./components/FormPage";
 
+/**
+ * Strona główna — formularz zgłoszenia (PRD §9.1/9.2/9.4).
+ * FormPage zarządza stanami: form → processing → (chat lub error).
+ */
 export default function Home() {
   return (
-    <main className="flex flex-1 flex-col items-center justify-center gap-8 px-6 py-16">
-      <Image
-        src="/logo-icon.svg"
-        alt="Logo asystenta serwisowego"
-        width={64}
-        height={64}
-        priority
-      />
-      <div className="flex flex-col items-center gap-4 text-center">
-        <h1 className="text-2xl font-bold text-text-primary">
-          Asystent serwisowy
-        </h1>
-        <p className="max-w-md text-md text-text-secondary">
-          Pomoc przy decyzjach reklamacyjnych i zwrotach sprzętu elektronicznego.
-        </p>
-      </div>
-      <PrimaryButton>Rozpocznij zgłoszenie</PrimaryButton>
+    <main className="flex flex-1 flex-col px-6 py-8 max-w-2xl w-full mx-auto">
+      <h1 className="text-2xl font-bold text-text-primary mb-2">
+        Asystent serwisowy
+      </h1>
+      <p className="text-text-secondary mb-8 text-base">
+        Wypełnij formularz, aby uzyskać wstępną ocenę swojego zgłoszenia reklamacyjnego lub zwrotu.
+      </p>
+      <FormPage />
     </main>
   );
 }
