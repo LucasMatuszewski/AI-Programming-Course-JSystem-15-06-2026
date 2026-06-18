@@ -41,13 +41,6 @@ oss_provider = "ollama"          # Default OSS (Open Source) models provider
 # [projects.'<your-project-path>']
 # trust_level = "trusted"
 
-# --------------------
-# Model migrations note
-# --------------------
-# Optional reminder layer: when a model name is deprecated, map it to a replacement.
-[notice.model_migrations]
-"gpt-5.3-codex" = "gpt-5.4"
-
 # ----------------
 # Windows sandboxing
 # ----------------
