@@ -21,3 +21,10 @@ Task 0.1 (Scaffold + tooling) completed on 2026-06-18.
 - Sanity tests: `lib/__sanity__.test.ts` (node) and `app/components/__sanity__.test.tsx` (jsdom)
 
 **Pinned versions:** next@16.2.9, react@19.2.4, ai@4.3.19, @ai-sdk/react@1.2.12, @openrouter/ai-sdk-provider@0.4.6, zod@3.25.76, sharp@0.34.5, vitest@3.2.6, @playwright/test@1.61.0
+
+**Phase 3 complete (2026-06-18):**
+- Commit `7783179`: drift-guard tests (18 tests in `lib/contracts/drift-guard.test.ts`)
+- Commit `f03ef68`: lazy provider fail-fast + MAX_IMAGE_MB test
+  - `lib/ai/provider.ts`: `getOpenRouter()` helper; throws Polish error if `OPENROUTER_API_KEY` missing/empty; instance cached per key value
+  - `app/api/analyze/route.ts`: `MAX_IMAGE_MB` env override was already wired (lines 38-40), added test
+  - 240 tests total passing

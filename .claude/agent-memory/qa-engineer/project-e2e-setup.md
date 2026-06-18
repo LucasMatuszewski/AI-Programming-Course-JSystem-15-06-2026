@@ -26,8 +26,12 @@ metadata:
 **Page Object Models:** `e2e/pages/IntakeFormPage.ts`, `e2e/pages/ChatScreenPage.ts`.
 Fixture image: `e2e/fixtures/device.jpg` (minimal valid 332-byte JPEG).
 
-**Known production bug:** `UIMessageSchema.id` is `z.string()` (required) in `lib/contracts/index.ts`, but `@ai-sdk/react` useChat v4 strips `id` before sending (default `sendExtraMessageFields=false`). Every chat follow-up → 422. Fix: `z.string().optional()`. E2E chat tests document this and verify TurnError (AC-29) path.
+**Production bug (FIXED commit ad2b353):** `UIMessageSchema.id` was `z.string()` (required) — now `z.string().optional()`. `ChatScreen.tsx` seeds `initialMessages` with `m.id ?? \`seed-${i}\``. Chat follow-ups no longer 422. AC-23/24/25/26 full E2E scenarios now passing.
 
-**Why:** AGENTS.md says E2E must use real stack, no mocking. The deterministic mock IS the stack — it's a real HTTP server replacing OpenRouter, not a Playwright route mock.
+**Mock diagnostic endpoint:** `GET /last-chat-body` on port 9876 returns the raw JSON body of the last streaming `/chat/completions` request. Used internally; AC-23 context assertion uses `page.route` spy instead.
+
+**page.route as spy:** For AC-23, `page.route("/api/chat", async (route) => { capture body; route.continue(); })` intercepts and forwards — this is spying, not mocking. Acceptable because the real server still handles the response. Use `{ times: N }` for one-shot error injection (AC-29 pattern).
+
+**Why:** AGENTS.md says E2E must use real stack, no mocking. The deterministic mock IS the stack — it's a real HTTP server replacing OpenRouter, not a Playwright route mock. `page.route` + `route.continue()` is spy-only and consistent with this rule.
 
 **How to apply:** When adding new E2E scenarios, add a sentinel to `extractSentinel()` in server.ts and add canned responses to `buildVisionResponse`, `buildDecisionResponse`, `buildChatReply`. Never embed sentinels in vision description output.
