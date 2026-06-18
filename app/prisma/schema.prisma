@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum EquipmentType {
+  bicycle
+}
+
+enum ClaimStatus {
+  draft
+  submitted
+  needs_clarification
+  preliminarily_accepted
+  preliminarily_rejected
+  service_review_requested
+  closed
+}
+
+enum DamageType {
+  mechanical
+  unknown
+}
+
+enum AssessmentDecision {
+  accepted
+  rejected
+  needs_clarification
+}
+
+enum AssessmentConfidence {
+  low
+  medium
+  high
+}
+
+enum ChatRole {
+  user
+  assistant
+  system
+}
+
+enum UserRole {
+  seller
+  technician
+  admin
+}
+
+model Claim {
+  id                  String         @id @default(cuid())
+  equipmentType       EquipmentType  @default(bicycle)
+  brand               String
+  model               String
+  problemDescription  String
+  damageCircumstances String
+  clarification       String?
+  serviceReviewNote   String?
+  status              ClaimStatus    @default(submitted)
+  damageType          DamageType     @default(unknown)
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+  photos              ClaimPhoto[]
+  assessments         AiAssessment[]
+  chatMessages        ChatMessage[]
+
+  @@index([status, createdAt])
+}
+
+model ClaimPhoto {
+  id               String   @id @default(cuid())
+  claimId          String
+  fileName         String
+  originalFileName String
+  mimeType         String
+  sizeBytes        Int
+  localPath        String
+  createdAt        DateTime @default(now())
+  claim            Claim    @relation(fields: [claimId], references: [id], onDelete: Cascade)
+
+  @@index([claimId])
+}
+
+model AiAssessment {
+  id                         String               @id @default(cuid())
+  claimId                    String
+  decision                   AssessmentDecision
+  damageType                 DamageType
+  confidence                 AssessmentConfidence
+  reasoningSummary           String
+  photoEvidenceSummary       String
+  descriptionEvidenceSummary String
+  serviceReviewRecommended   Boolean              @default(false)
+  createdAt                  DateTime             @default(now())
+  claim                      Claim                @relation(fields: [claimId], references: [id], onDelete: Cascade)
+
+  @@index([claimId, createdAt])
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  claimId   String
+  role      ChatRole
+  content   String
+  createdAt DateTime @default(now())
+  claim     Claim    @relation(fields: [claimId], references: [id], onDelete: Cascade)
+
+  @@index([claimId, createdAt])
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  role         UserRole @default(seller)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
