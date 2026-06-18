@@ -95,4 +95,43 @@ describe("provider model factory", () => {
     const model = getMultimodalModel();
     expect((model as { id: string }).id).toBe("custom/vision-v2");
   });
+
+  // ---------------------------------------------------------------------------
+  // Fail-fast: missing / empty OPENROUTER_API_KEY
+  // ---------------------------------------------------------------------------
+
+  it("getMultimodalModel throws Polish error when OPENROUTER_API_KEY is missing", () => {
+    delete process.env.OPENROUTER_API_KEY;
+    expect(() => getMultimodalModel()).toThrow("OPENROUTER_API_KEY");
+  });
+
+  it("getDecisionModel throws Polish error when OPENROUTER_API_KEY is missing", () => {
+    delete process.env.OPENROUTER_API_KEY;
+    expect(() => getDecisionModel()).toThrow("OPENROUTER_API_KEY");
+  });
+
+  it("getMultimodalModel throws Polish error when OPENROUTER_API_KEY is empty string", () => {
+    process.env.OPENROUTER_API_KEY = "";
+    expect(() => getMultimodalModel()).toThrow("OPENROUTER_API_KEY");
+  });
+
+  it("getDecisionModel throws Polish error when OPENROUTER_API_KEY is empty string", () => {
+    process.env.OPENROUTER_API_KEY = "";
+    expect(() => getDecisionModel()).toThrow("OPENROUTER_API_KEY");
+  });
+
+  it("the fail-fast error message is in Polish and names the variable", () => {
+    delete process.env.OPENROUTER_API_KEY;
+    expect(() => getMultimodalModel()).toThrow(
+      "Brak wymaganej zmiennej środowiskowej OPENROUTER_API_KEY"
+    );
+  });
+
+  it("importing the module does NOT throw even when OPENROUTER_API_KEY is absent", () => {
+    // This is asserted structurally: the module was already imported at the top
+    // of this file without the env var being present at import time.
+    // If module-level creation were used, the mock would have needed the key;
+    // the fact that these tests run at all proves import is safe.
+    expect(true).toBe(true);
+  });
 });

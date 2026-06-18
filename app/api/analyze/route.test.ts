@@ -364,4 +364,35 @@ describe("POST /api/analyze", () => {
     expect(body.context.imageDescription).toBe(VALID_ANALYSIS.description);
     expect(body.context.policyKind).toBe("complaint");
   });
+
+  // --- MAX_IMAGE_MB env override ---
+
+  it("MAX_IMAGE_MB env var overrides the default 10 MB image size limit", async () => {
+    const originalMaxImageMb = process.env.MAX_IMAGE_MB;
+    try {
+      // Set a 1 MB limit via env
+      process.env.MAX_IMAGE_MB = "1";
+      // A 1 MB + 1 byte file should now be rejected
+      const oversizedBytes = Buffer.alloc(1 * 1024 * 1024 + 1, 0);
+      const req = buildFormDataRequest(VALID_COMPLAINT_FIELDS, {
+        bytes: oversizedBytes,
+        type: "image/jpeg",
+        name: "medium.jpg",
+      });
+
+      const res = await POST(req);
+      expect(res.status).toBe(422);
+
+      const body = await res.json();
+      expect(body.errors.image).toMatch(/1 MB/);
+      expect(mockAnalyzeImage).not.toHaveBeenCalled();
+    } finally {
+      // Restore env
+      if (originalMaxImageMb === undefined) {
+        delete process.env.MAX_IMAGE_MB;
+      } else {
+        process.env.MAX_IMAGE_MB = originalMaxImageMb;
+      }
+    }
+  });
 });
