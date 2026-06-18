@@ -194,3 +194,16 @@ readable. Rounded pill buttons that subtly grow on hover, perfectly circular pla
 controls, and softly rounded `6px` cover-art tiles make the interface feel
 tactile and playful. The overall vibe is modern, confident, and unmistakably
 music-first — minimal chrome, maximum content.
+
+---
+
+## 9. Design Wireframes
+
+The application's functional views are divided into the following logical phases:
+
+| Phase | Wireframe | Description |
+|---|---|---|
+| Step 1 - Form/Intake | [`../assets/Wireframe-Step-1.png`](../assets/Wireframe-Step-1.png) | Initial claim or return form. |
+| Step 2 - Decision | [`../assets/Wireframe-Step-2.png`](../assets/Wireframe-Step-2.png) | Summary of the preliminary decision and next steps. |
+| Step 3 - Chat/Interview | [`../assets/Wireframe-Step-3.png`](../assets/Wireframe-Step-3.png) | Conversational interface for gathering more info from the user. |
+
