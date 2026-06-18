@@ -1,15 +1,31 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand-primary: #d2ff00;
+  --color-brand-primary-muted: #b2c73a;
+  --color-brand-accent: #ff6b00;
+  --color-brand-error: #ff4c24;
+  --color-background-default: #282c20;
+  --color-background-panel: #111112;
+  --color-background-elevated: #3b3c38;
+  --color-background-subtle: #535450;
+  --color-text-primary: #f4f4ed;
+  --color-text-secondary: #dde1d2;
+  --color-text-muted: #b9bbad;
+  --color-text-on-accent: #282c20;
+  --color-border-default: rgba(244, 244, 237, 0.16);
+  --font-sans: "Mona Sans Variable", Arial, sans-serif;
+  --font-display: "Brier", "Mona Sans Variable", Arial, sans-serif;
+  --radius-xs: 0.411875rem;
+  --radius-sm: 0.54rem;
+  --radius-md: 0.74rem;
+  --radius-lg: 1rem;
+}
+
 :root {
-  --background-default: #282c20;
-  --background-panel: #111112;
-  --background-elevated: #3b3c38;
-  --brand-primary: #d2ff00;
-  --brand-accent: #ff6b00;
-  --text-primary: #f4f4ed;
-  --text-secondary: #dde1d2;
-  --text-muted: #b9bbad;
-  --border-default: rgba(244, 244, 237, 0.16);
+  color-scheme: dark;
+  background: #282c20;
+  color: #f4f4ed;
 }
 
 * {
@@ -17,17 +33,18 @@
 }
 
 html {
-  background: var(--background-default);
+  min-height: 100%;
+  letter-spacing: 0;
 }
 
 body {
   min-height: 100vh;
   margin: 0;
   background:
-    radial-gradient(circle at top right, rgba(210, 255, 0, 0.12), transparent 28rem),
-    linear-gradient(135deg, #282c20 0%, #111112 58%, #1f211a 100%);
-  color: var(--text-primary);
-  font-family: Arial, sans-serif;
+    radial-gradient(circle at 12% 10%, rgba(210, 255, 0, 0.16), transparent 24rem),
+    linear-gradient(135deg, #282c20 0%, #111112 58%, #3b3c38 100%);
+  color: #f4f4ed;
+  font-family: "Mona Sans Variable", Arial, sans-serif;
 }
 
 button,
@@ -37,10 +54,154 @@ textarea {
   font: inherit;
 }
 
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
-  outline: 2px solid var(--brand-primary);
-  outline-offset: 2px;
+::selection {
+  background: #d2ff00;
+  color: #282c20;
+}
+
+.app-panel {
+  border: 1px solid rgba(244, 244, 237, 0.16);
+  border-radius: 1rem;
+  background: #111112;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+}
+
+.nav-link,
+.eyebrow {
+  color: #d2ff00;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.nav-link {
+  color: #dde1d2;
+}
+
+.nav-link:hover {
+  color: #d2ff00;
+}
+
+.field-label {
+  display: grid;
+  gap: 0.5rem;
+  color: #dde1d2;
+  font-size: 0.875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.control {
+  min-height: 3rem;
+  border: 1px solid rgba(244, 244, 237, 0.16);
+  border-radius: 0.54rem;
+  background: #3b3c38;
+  color: #f4f4ed;
+  outline: none;
+  padding: 0 1rem;
+  text-transform: none;
+}
+
+.control:focus {
+  border-color: #d2ff00;
+  box-shadow: 0 0 0 3px rgba(210, 255, 0, 0.25);
+}
+
+.control:disabled {
+  color: #b9bbad;
+  cursor: not-allowed;
+}
+
+.file-control {
+  border: 1px dashed rgba(244, 244, 237, 0.16);
+  border-radius: 0.54rem;
+  background: #3b3c38;
+  color: #dde1d2;
+  padding: 1rem;
+  text-transform: none;
+}
+
+.file-control::file-selector-button {
+  border: 0;
+  border-radius: 0.411875rem;
+  background: #d2ff00;
+  color: #282c20;
+  cursor: pointer;
+  font-weight: 900;
+  margin-right: 1rem;
+  padding: 0.55rem 1rem;
+  text-transform: uppercase;
+}
+
+.primary-button,
+.secondary-button {
+  min-height: 3rem;
+  border-radius: 0.54rem;
+  font-size: 0.875rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.primary-button {
+  border: 1px solid #d2ff00;
+  background: #d2ff00;
+  color: #282c20;
+}
+
+.primary-button:hover {
+  background: #b2c73a;
+}
+
+.secondary-button {
+  border: 1px solid rgba(244, 244, 237, 0.35);
+  background: transparent;
+  color: #f4f4ed;
+  padding: 0 1rem;
+}
+
+.secondary-button:hover {
+  border-color: #d2ff00;
+  color: #d2ff00;
+}
+
+.info-tile {
+  border: 1px solid rgba(244, 244, 237, 0.16);
+  border-radius: 0.54rem;
+  background: #3b3c38;
+  padding: 1rem;
+}
+
+.info-tile dt {
+  color: #b9bbad;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.info-tile dd {
+  color: #f4f4ed;
+  font-weight: 800;
+  margin: 0.35rem 0 0;
+}
+
+.chat-bubble {
+  border: 1px solid rgba(244, 244, 237, 0.16);
+  border-radius: 0.74rem;
+  color: #f4f4ed;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0.85rem 1rem;
+}
+
+.chat-bubble.assistant {
+  background: #3b3c38;
+}
+
+.chat-bubble.user {
+  background: rgba(210, 255, 0, 0.12);
+  border-color: rgba(210, 255, 0, 0.35);
 }
