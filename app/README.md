@@ -1,60 +1,73 @@
-# App
+# Asystent reklamacji rowerów - PoC
 
-This folder will contain the application built during the course.
+PoC aplikacji Next.js do wstępnej oceny reklamacji rowerów na podstawie formularza, opisu okoliczności i zdjęć uszkodzenia. Aplikacja zapisuje zgłoszenia w SQLite, przechowuje zdjęcia lokalnie, pokazuje decyzję AI, umożliwia doprecyzowanie, chat po odmowie i panel obsługi.
 
-## How to start
+## Uruchomienie lokalne
 
-The app is scaffolded live during **Day 1–2** through a structured process:
+1. Skopiuj env:
 
-1. **Research** — use agents to research and validate the project idea
-2. **PRD** — generate a Product Requirements Document (`../docs/PRD-Product-Requirements-Document.md`)
-3. **ADR** — generate Architecture Decision Records (`../docs/ADR/`) to choose the tech stack
-4. **Scaffold** — use the chosen boilerplate (`create-next-app`, AI SDK starter, Mastra, etc.)
-5. **Implement** — build features with agents using TDD
+```powershell
+Copy-Item .env.example .env
+```
 
-## Checklist
+2. Ustaw wartości w `.env`, minimum:
 
-Use this checklist during scaffolding. Some items are provided by the boilerplate (e.g. `create-next-app` ships `tsconfig.json`, ESLint config). Others you add explicitly.
+```env
+DATABASE_URL="file:./prisma/dev.db"
+AUTH_SECRET="dev-secret-change-me"
+UPLOAD_DIR="./data/uploads"
+SEED_ADMIN_EMAIL="admin@example.com"
+SEED_ADMIN_PASSWORD="change-me-local-only"
+```
 
-### Project setup
-- [ ] Choose framework (Next.js, Express+Vite, Mastra, other) — record in ADR
-- [ ] Initialize project (e.g. `npx create-next-app@latest` or equivalent)
-- [ ] TypeScript config (`tsconfig.json`)
-- [ ] Package manager chosen (npm / pnpm / bun)
+3. Przygotuj bazę i konto pracownika:
 
-### Code quality
-- [ ] ESLint config (`eslint.config.js`)
-- [ ] Prettier config (`.prettierrc`, `.prettierignore`)
-- [ ] `.editorconfig` (optional but recommended)
+```powershell
+npm.cmd run db:migrate
+npm.cmd run db:seed
+```
 
-### Testing
-- [ ] Unit/integration test runner (Vitest / Jest)
-- [ ] E2E test runner (Playwright)
-- [ ] Test setup file (e.g. `test-setup.ts` with Testing Library matchers)
+4. Uruchom aplikację:
 
-### Environment
-- [ ] `.env.example` with required env vars (API keys, ports)
-- [ ] `.env` created locally (gitignored)
-- [ ] `.gitignore` (node_modules, .env, build output, etc.)
+```powershell
+npm.cmd run dev
+```
 
-### AI integration
-- [ ] Vercel AI SDK (`ai` package) or equivalent
-- [ ] API route / endpoint for chat
-- [ ] Model configuration (provider, model name, API key from env)
+Widoki:
+- `/` - formularz klienta, decyzja, doprecyzowanie i chat po odmowie.
+- `/service` - panel obsługi PoC.
 
-### Design
-- [ ] Design tokens (`../assets/design-tokens.json`)
-- [ ] Tailwind CSS or equivalent
-- [ ] Logo and favicon (`../assets/`)
-- [ ] Design system doc (`../docs/design-guidelines.md`)
+## Weryfikacja
 
-### Documentation
-- [ ] PRD (`../docs/PRD-Product-Requirements-Document.md`)
-- [ ] ADRs (`../docs/ADR/`)
-- [ ] AGENTS.md in `app/` with stack-specific rules
+```powershell
+npm.cmd test
+npm.cmd run lint
+npm.cmd run build
+npm.cmd run test:e2e
+```
 
-## Notes
+Playwright wymaga pobranego Chromium:
 
-- Don't create config files manually if the boilerplate provides them — it leads to conflicts.
-- Let the agent research and recommend the right boilerplate based on the ADR decisions.
-- Keep this folder organized: separate routes, components, domain logic, and tests.
+```powershell
+npx.cmd playwright install chromium
+```
+
+Jeśli lokalny system zgłasza problem certyfikatu, jednorazowo pobierz przeglądarkę z:
+
+```powershell
+$env:NODE_TLS_REJECT_UNAUTHORIZED='0'; npx.cmd playwright install chromium
+```
+
+## Zakres PoC
+
+- Wspierany typ sprzętu: rower.
+- Wymagane dane: marka, model, opis problemu, okoliczności uszkodzenia, 1-5 zdjęć.
+- Decyzje: podlega reklamacji, nie podlega reklamacji, wymaga doprecyzowania.
+- Chat jest dostępny po wstępnej odmowie.
+- Panel obsługi pokazuje zgłoszenia, status, typ uszkodzenia i uzasadnienie AI.
+
+## Ograniczenia
+
+- Decyzja AI jest wstępna i nie jest finalną decyzją prawną.
+- Aktualny adapter oceny działa jako PoC z lokalną heurystyką i mockowalnym kontraktem pod OpenAI/Vercel AI SDK.
+- SQLite i lokalny filesystem są dobre dla lokalnego demo. Na Vercel nie są produkcyjnie trwałe; przed realnym pilotażem trzeba przejść na hostowaną bazę i object storage.
