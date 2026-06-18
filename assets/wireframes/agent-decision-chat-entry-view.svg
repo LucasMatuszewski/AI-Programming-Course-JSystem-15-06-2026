@@ -1,0 +1,46 @@
+<svg width="640" height="920" viewBox="0 0 640 920" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>Wireframe - agent decision and chat entry view</title>
+  <desc>Hand-drawn low fidelity wireframe for the view after the AI preliminary decision, with chat entry.</desc>
+  <style>
+    .bg { fill: #fbfaf4; }
+    .ink { stroke: #1f211a; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .thin { stroke: #1f211a; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .dash { stroke: #1f211a; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 10 9; fill: none; }
+    .soft { fill: #f1efe3; stroke: #1f211a; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+    .note { fill: #e8ff66; stroke: #1f211a; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+    .button { fill: #d2ff00; stroke: #1f211a; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+    .title { font: 700 30px "Comic Sans MS", "Segoe Print", Arial, sans-serif; fill: #1f211a; }
+    .label { font: 600 21px "Comic Sans MS", "Segoe Print", Arial, sans-serif; fill: #1f211a; }
+    .small { font: 500 17px "Comic Sans MS", "Segoe Print", Arial, sans-serif; fill: #1f211a; }
+    .tiny { font: 500 14px "Comic Sans MS", "Segoe Print", Arial, sans-serif; fill: #1f211a; }
+  </style>
+
+  <rect class="bg" width="640" height="920"/>
+  <path class="ink" d="M45 38 C185 27, 438 29, 592 39"/>
+  <text x="50" y="78" class="title">Odpowiedź agenta</text>
+  <text x="50" y="110" class="small">Decyzja + wejście w tryb czatu</text>
+
+  <path class="ink" d="M44 145 C202 132, 431 137, 596 146 C607 310, 604 651, 594 872 C433 885, 205 883, 43 871 C32 635, 35 395, 44 145Z"/>
+
+  <path class="note" d="M74 184 C213 174, 420 178, 553 185 C560 259, 556 322, 548 384 C411 395, 210 391, 76 384 C67 313, 68 250, 74 184Z"/>
+  <text x="100" y="224" class="label">Wstępna decyzja AI</text>
+  <text x="100" y="261" class="title">Nie podlega reklamacji</text>
+  <text x="100" y="297" class="small">Typ: uszkodzenie mechaniczne</text>
+  <text x="100" y="327" class="tiny">Decyzja jest wstępna i może wymagać</text>
+  <text x="100" y="350" class="tiny">weryfikacji przez sprzedawcę lub serwis.</text>
+
+  <path class="soft" d="M74 416 C221 407, 409 409, 552 418 C559 520, 556 609, 548 689 C409 700, 209 699, 77 688 C68 587, 68 499, 74 416Z"/>
+  <text x="100" y="454" class="label">Uzasadnienie</text>
+  <path class="thin" d="M100 480 C216 474, 423 477, 545 481"/>
+  <text x="100" y="516" class="small">Zdjęcia pokazują uszkodzoną ramę.</text>
+  <text x="100" y="546" class="small">Opis wskazuje na upadek roweru.</text>
+  <text x="100" y="576" class="small">To zmienia interpretację zdjęcia.</text>
+  <path class="dash" d="M98 609 C213 602, 429 605, 544 610 C548 645, 547 667, 541 681 C408 687, 227 686, 100 681 C95 657, 94 631, 98 609Z"/>
+  <text x="116" y="651" class="tiny">Możesz poprosić o dodatkowe wyjaśnienie.</text>
+
+  <path class="button" d="M76 728 C216 719, 404 723, 548 729 C556 764, 552 798, 544 821 C407 830, 215 828, 78 820 C70 789, 68 758, 76 728Z"/>
+  <text x="180" y="773" class="label">Porozmawiaj z AI</text>
+
+  <path class="thin" d="M76 847 C226 839, 405 841, 548 848"/>
+  <text x="145" y="873" class="small">Przekaż do weryfikacji serwisu</text>
+</svg>
