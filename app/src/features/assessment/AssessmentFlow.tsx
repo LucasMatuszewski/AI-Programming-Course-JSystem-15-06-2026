@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { ChatThread } from "@/features/chat/ChatThread";
 import {
   buildAssessmentFormData,
   emptyIntakeFormValues,
@@ -10,11 +11,10 @@ import {
 } from "@/features/intake/IntakeForm";
 import type { AssessmentError } from "@/shared/contracts";
 
-import { DecisionCard } from "./DecisionCard";
 import styles from "./AssessmentFlow.module.css";
 import type { AssessmentErrorResponse, AssessmentSuccessResponse } from "./types";
 
-type ScreenState = "FORM" | "PROCESSING" | "DECISION" | "ERROR";
+type ScreenState = "FORM" | "PROCESSING" | "CHAT" | "ERROR";
 
 type ActiveCase = AssessmentSuccessResponse | null;
 
@@ -43,7 +43,7 @@ export function AssessmentFlow() {
       }
 
       setActiveCase(body);
-      setScreen("DECISION");
+      setScreen("CHAT");
     } catch {
       setLastError(fallbackError);
       setScreen("ERROR");
@@ -85,20 +85,14 @@ export function AssessmentFlow() {
     );
   }
 
-  if (screen === "DECISION" && activeCase) {
+  if (screen === "CHAT" && activeCase) {
     return (
       <div className={styles.panel}>
         <div className="shell-panel-header">
           <span className="shell-step-badge">Decyzja wstępna</span>
           <h2>Wstępna ocena zgłoszenia</h2>
         </div>
-        <DecisionCard message={activeCase.firstAssistantMessage} />
-        <div className={styles.placeholder} aria-label="Rozmowa będzie dostępna w kolejnym kroku">
-          <p>Możliwość zadawania pytań w rozmowie zostanie dodana w kolejnym kroku.</p>
-          <button className={styles.ghost} onClick={startNewRequest} type="button">
-            Nowe zgłoszenie
-          </button>
-        </div>
+        <ChatThread activeCase={activeCase} key={activeCase.caseId} onNewRequest={startNewRequest} />
       </div>
     );
   }

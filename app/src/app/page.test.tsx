@@ -3,6 +3,18 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import Home from "./page";
 
+const chatState = vi.hoisted(() => ({
+  messages: [] as Array<{ id: string; role: "user" | "assistant"; parts: Array<{ type: "text"; text: string }> }>,
+  status: "ready",
+  error: undefined as Error | undefined,
+  sendMessage: vi.fn(),
+  regenerate: vi.fn()
+}));
+
+vi.mock("@ai-sdk/react", () => ({
+  useChat: vi.fn(() => chatState)
+}));
+
 const successResponse = {
   caseId: "case-123",
   submission: {
@@ -51,6 +63,17 @@ const successResponse = {
 
 describe("strona startowa", () => {
   beforeEach(() => {
+    chatState.messages = [
+      {
+        id: "assistant-initial",
+        role: "assistant",
+        parts: [{ type: "text", text: "Dzien dobry, przygotowalem wstepna ocene zgloszenia." }]
+      }
+    ];
+    chatState.status = "ready";
+    chatState.error = undefined;
+    chatState.sendMessage.mockReset();
+    chatState.regenerate.mockReset();
     vi.stubGlobal("fetch", vi.fn());
     vi.stubGlobal(
       "URL",
@@ -154,7 +177,128 @@ describe("strona startowa", () => {
       body: expect.any(FormData)
     });
     expect(screen.getByText("Decyzja wstępna")).toBeInTheDocument();
-    expect(screen.queryByRole("textbox", { name: "Wiadomość" })).not.toBeInTheDocument();
+    expect(screen.getByRole("textbox", { name: "Wiadomość" })).toBeInTheDocument();
+  });
+
+  it("renderuje karte decyzji w kolejnosci: powitanie, decyzja, uzasadnienie, kolejne kroki, zastrzezenie", async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(
+      new Response(JSON.stringify(successResponse), {
+        status: 200,
+        headers: { "content-type": "application/json" }
+      })
+    );
+
+    render(<Home />);
+    fillValidReturnForm();
+    fireEvent.click(screen.getByRole("button", { name: "Przygotuj ocenę" }));
+
+    await screen.findByText("Zwrot moze zostac przyjety");
+
+    const card = screen.getByRole("article", { name: "Zwrot moze zostac przyjety" });
+    const orderedTexts = [
+      "Dzien dobry, przygotowalem wstepna ocene zgloszenia.",
+      "Prawdopodobnie zaakceptowane",
+      "Uzasadnienie",
+      "Następne kroki",
+      "To wstepna, niewiazaca ocena. Ostateczna decyzje podejmuje zespol serwisu."
+    ];
+    const positions = orderedTexts.map((text) => card.textContent?.indexOf(text) ?? -1);
+
+    expect(positions.every((position) => position >= 0)).toBe(true);
+    expect(positions).toEqual([...positions].sort((a, b) => a - b));
+    expect(screen.getByText("Prawdopodobnie zaakceptowane").className).toContain("approve");
+  });
+
+  it("wysyla wiadomosc czatu i renderuje odpowiedzi z czesci messages.parts", async () => {
+    chatState.messages = [
+      ...chatState.messages,
+      { id: "user-1", role: "user", parts: [{ type: "text", text: "Czy moge oddac bez pudelka?" }] },
+      {
+        id: "assistant-1",
+        role: "assistant",
+        parts: [
+          { type: "text", text: "Mozesz kontynuowac zgloszenie, " },
+          { type: "text", text: "ale komplet akcesoriow moze byc wymagany." }
+        ]
+      }
+    ];
+    vi.mocked(fetch).mockResolvedValueOnce(
+      new Response(JSON.stringify(successResponse), {
+        status: 200,
+        headers: { "content-type": "application/json" }
+      })
+    );
+
+    render(<Home />);
+    fillValidReturnForm();
+    fireEvent.click(screen.getByRole("button", { name: "Przygotuj ocenę" }));
+
+    await screen.findByText("Czy moge oddac bez pudelka?");
+    expect(screen.getByText("Mozesz kontynuowac zgloszenie,")).toBeInTheDocument();
+    expect(screen.getByText("ale komplet akcesoriow moze byc wymagany.")).toBeInTheDocument();
+
+    fireEvent.change(screen.getByRole("textbox", { name: "Wiadomość" }), {
+      target: { value: "Co dalej?" }
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Wyślij" }));
+
+    expect(chatState.sendMessage).toHaveBeenCalledWith({ text: "Co dalej?" });
+  });
+
+  it("blokuje wysylke podczas streamingu i pokazuje status odpowiedzi", async () => {
+    chatState.status = "streaming";
+    vi.mocked(fetch).mockResolvedValueOnce(
+      new Response(JSON.stringify(successResponse), {
+        status: 200,
+        headers: { "content-type": "application/json" }
+      })
+    );
+
+    render(<Home />);
+    fillValidReturnForm();
+    fireEvent.click(screen.getByRole("button", { name: "Przygotuj ocenę" }));
+
+    expect(await screen.findByText("Asystent odpowiada...")).toBeInTheDocument();
+    expect(screen.getByRole("textbox", { name: "Wiadomość" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Wyślij" })).toBeDisabled();
+  });
+
+  it("pozwala ponowic nieudana ture czatu", async () => {
+    chatState.status = "error";
+    chatState.error = new Error("stream failed");
+    vi.mocked(fetch).mockResolvedValueOnce(
+      new Response(JSON.stringify(successResponse), {
+        status: 200,
+        headers: { "content-type": "application/json" }
+      })
+    );
+
+    render(<Home />);
+    fillValidReturnForm();
+    fireEvent.click(screen.getByRole("button", { name: "Przygotuj ocenę" }));
+
+    fireEvent.click(await screen.findByRole("button", { name: "Ponów odpowiedź" }));
+    expect(chatState.regenerate).toHaveBeenCalledTimes(1);
+  });
+
+  it("nowe zgloszenie czysci aktywna sprawe i rozmowe", async () => {
+    vi.mocked(fetch).mockResolvedValueOnce(
+      new Response(JSON.stringify(successResponse), {
+        status: 200,
+        headers: { "content-type": "application/json" }
+      })
+    );
+
+    render(<Home />);
+    fillValidReturnForm();
+    fireEvent.click(screen.getByRole("button", { name: "Przygotuj ocenę" }));
+
+    await screen.findByText("Zwrot moze zostac przyjety");
+    fireEvent.click(screen.getByRole("button", { name: "Nowe zgłoszenie" }));
+
+    expect(screen.getByRole("button", { name: "Przygotuj ocenę" })).toBeDisabled();
+    expect(screen.queryByText("Zwrot moze zostac przyjety")).not.toBeInTheDocument();
+    expect(screen.queryByText("telefon.jpg")).not.toBeInTheDocument();
   });
 
   it("pokazuje stan bledu i pozwala wrocic do formularza", async () => {
