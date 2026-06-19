@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { join, resolve } from "node:path";
 import type { RequestType } from "../../shared/contracts";
 
 const policyFileByRequestType: Record<RequestType, string> = {
@@ -7,7 +7,7 @@ const policyFileByRequestType: Record<RequestType, string> = {
   COMPLAINT: "polityka-reklamacji.md"
 };
 
-const defaultPolicyRootPath = resolve(process.cwd(), "..", "docs", "policies");
+const defaultPolicyRootPath = join(/*turbopackIgnore: true*/ process.cwd(), "..", "docs", "policies");
 
 export type LoadedPolicy = {
   requestType: RequestType;
