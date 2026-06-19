@@ -1,13 +1,10 @@
-import { readFile } from "node:fs/promises";
-import { join, resolve } from "node:path";
 import type { RequestType } from "../../shared/contracts";
+import { bundledPolicyContentByRequestType } from "./policy-content";
 
 const policyFileByRequestType: Record<RequestType, string> = {
   RETURN: "polityka-zwrotow.md",
   COMPLAINT: "polityka-reklamacji.md"
 };
-
-const defaultPolicyRootPath = join(/*turbopackIgnore: true*/ process.cwd(), "..", "docs", "policies");
 
 export type LoadedPolicy = {
   requestType: RequestType;
@@ -16,7 +13,7 @@ export type LoadedPolicy = {
 };
 
 export type PolicyLoaderOptions = {
-  policyRootPath?: string;
+  policyContentByRequestType?: Partial<Record<RequestType, string>>;
 };
 
 export class PolicyLoadError extends Error {
@@ -33,27 +30,17 @@ export const loadPolicyForRequestType = async (
   requestType: RequestType,
   options: PolicyLoaderOptions = {}
 ): Promise<LoadedPolicy> => {
-  const policyRootPath = options.policyRootPath ?? defaultPolicyRootPath;
-  const sourcePath = resolve(policyRootPath, policyFileByRequestType[requestType]);
+  const sourcePath = `docs/policies/${policyFileByRequestType[requestType]}`;
+  const contentByRequestType = options.policyContentByRequestType ?? bundledPolicyContentByRequestType;
+  const content = contentByRequestType[requestType]?.trim();
 
-  try {
-    const content = await readFile(sourcePath, "utf8");
-    const trimmedContent = content.trim();
-
-    if (trimmedContent.length === 0) {
-      throw new PolicyLoadError(requestType);
-    }
-
-    return {
-      requestType,
-      content: trimmedContent,
-      sourcePath
-    };
-  } catch (error) {
-    if (error instanceof PolicyLoadError) {
-      throw error;
-    }
-
+  if (!content) {
     throw new PolicyLoadError(requestType);
   }
+
+  return {
+    requestType,
+    content,
+    sourcePath
+  };
 };

@@ -1,6 +1,3 @@
-import { mkdtemp, rm, writeFile } from "node:fs/promises";
-import { join } from "node:path";
-import { tmpdir } from "node:os";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("server-only", () => ({}));
@@ -28,17 +25,13 @@ describe("loadPolicyForRequestType", () => {
     expect(policy.content).not.toContain("14 dni kalendarzowych");
   });
 
-  it("fails closed when the selected policy file is missing", async () => {
-    const policyRootPath = await mkdtemp(join(tmpdir(), "policy-loader-"));
-
-    try {
-      await writeFile(join(policyRootPath, "polityka-reklamacji.md"), "REKLAMACJA", "utf8");
-
-      await expect(
-        loadPolicyForRequestType("RETURN", { policyRootPath })
-      ).rejects.toThrow("Brak wymaganej polityki dla typu zgłoszenia RETURN.");
-    } finally {
-      await rm(policyRootPath, { force: true, recursive: true });
-    }
+  it("fails closed when the selected policy content is missing", async () => {
+    await expect(
+      loadPolicyForRequestType("RETURN", {
+        policyContentByRequestType: {
+          COMPLAINT: "REKLAMACJA"
+        }
+      })
+    ).rejects.toThrow("Brak wymaganej polityki dla typu zgłoszenia RETURN.");
   });
 });
