@@ -121,11 +121,33 @@ const addValidationIssue = (
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === "object" && value !== null && !Array.isArray(value);
 
-const isIsoDateOnly = (value: string) => /^\d{4}-\d{2}-\d{2}$/.test(value);
+const parseIsoDateOnly = (value: string) => {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+
+  if (!match) {
+    return null;
+  }
+
+  const [, yearText, monthText, dayText] = match;
+  const year = Number(yearText);
+  const month = Number(monthText);
+  const day = Number(dayText);
+  const parsedDate = new Date(Date.UTC(year, month - 1, day));
+
+  if (
+    parsedDate.getUTCFullYear() !== year ||
+    parsedDate.getUTCMonth() !== month - 1 ||
+    parsedDate.getUTCDate() !== day
+  ) {
+    return null;
+  }
+
+  return parsedDate;
+};
 
 const isFutureDate = (isoDate: string) => {
-  const parsedDate = new Date(`${isoDate}T00:00:00.000Z`);
-  if (Number.isNaN(parsedDate.getTime())) {
+  const parsedDate = parseIsoDateOnly(isoDate);
+  if (!parsedDate) {
     return false;
   }
 
@@ -213,7 +235,7 @@ const intakeSubmissionBaseSchema = z
         "required_purchase_date",
         validationMessages.requiredPurchaseDate
       );
-    } else if (!isIsoDateOnly(value.purchaseDate) || Number.isNaN(Date.parse(value.purchaseDate))) {
+    } else if (!parseIsoDateOnly(value.purchaseDate)) {
       addValidationIssue(
         context,
         ["purchaseDate"],

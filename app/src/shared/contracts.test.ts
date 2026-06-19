@@ -79,6 +79,24 @@ describe("intakeSubmissionSchema", () => {
     }
   });
 
+  it("odrzuca nieistniejącą datę zakupu zamiast normalizować ją do innego dnia", () => {
+    const result = intakeSubmissionSchema.safeParse({
+      ...validReturnSubmission,
+      purchaseDate: "2026-02-31"
+    });
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(formatValidationErrors(result.error)).toContainEqual(
+        expect.objectContaining({
+          code: "invalid_purchase_date",
+          field: "purchaseDate",
+          message: "Podaj datę zakupu w formacie RRRR-MM-DD."
+        })
+      );
+    }
+  });
+
   it("wymaga powodu dla reklamacji", () => {
     const result = intakeSubmissionSchema.safeParse({
       ...validReturnSubmission,
