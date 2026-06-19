@@ -25,7 +25,7 @@ export function DecisionCard({ message }: DecisionCardProps) {
   const { card } = message;
 
   return (
-    <article className={styles.card} aria-labelledby="decision-title">
+    <article className={styles.card} aria-labelledby="decision-title" data-testid="decision-card">
       <p>{card.greeting}</p>
       <div className={styles.heading}>
         <span className={`${styles.status} ${outcomeClasses[card.outcome]}`}>
@@ -74,7 +74,9 @@ export function DecisionCard({ message }: DecisionCardProps) {
         </section>
       ) : null}
 
-      <p className={styles.disclaimer}>{card.disclaimer}</p>
+      <p className={styles.disclaimer} data-testid="decision-disclaimer">
+        {card.disclaimer}
+      </p>
     </article>
   );
 }

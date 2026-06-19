@@ -110,7 +110,10 @@ function ChatMessage({ message }: { message: UIMessage }) {
   const label = message.role === "user" ? "Ty" : "Asystent";
 
   return (
-    <article className={`${styles.message} ${message.role === "user" ? styles.user : styles.assistant}`}>
+    <article
+      className={`${styles.message} ${message.role === "user" ? styles.user : styles.assistant}`}
+      data-testid={message.role === "user" ? "user-message" : "assistant-message"}
+    >
       <span className={styles.messageLabel}>{label}</span>
       {message.parts.map((part, index) => {
         if (part.type !== "text") {
