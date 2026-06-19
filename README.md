@@ -11,13 +11,15 @@
 
 ## O repozytorium
 
-To repozytorium zawiera materiały do 5-dniowego kursu **AI w Programowaniu** prowadzonego przez JSystems. Kurs skupia się na workflow pracy z agentami AI (Claude Code, OpenAI Codex CLI), a nie na jednym konkretnym narzędziu.
+To repozytorium zawiera materiały do 5-dniowego kursu **AI w Programowaniu** prowadzonego przez Łukasza Matuszewskiego z ramienia firmy JSystems. Kurs skupia się na powtarzalnym workflow pracy z różnymi agentami AI (np. Claude Code, OpenAI Codex), a nie na jednym konkretnym narzędziu.
 
 Uczestnicy pracują w swoim preferowanym języku programowania (Java, Python, C#, Go, Rust i inne). Prowadzący demonstruje rozwiązania w **TypeScript/Node.js**, na przykład z **Vercel AI SDK**.
 
 ### Projekt kursu
 
-Multimodalna aplikacja AI — na przykład agent weryfikujący usterki, zwroty i reklamacje sprzętu elektronicznego. Konkretny projekt i tech stack ustalane są live z grupą po przez proces: research → PRD → ADR → implementacja z agentami.
+Uczymy się razem Agentów AI do kodowania (np. Codex, Claude, Antigravity) budując Multimodalną aplikację AI — na przykład agent weryfikujący usterki, zwroty i reklamacje sprzętu elektronicznego. Każdy uczestnik może budować inną aplikację niż prowadzący, podążając za wspólnym workflow pracy z agentami i za planem szkolenia, ale podejmując własne decyzje na każdym etapie. Prowadzący udostępnia swoje prompty na wzór, każdy może je jednak modyfikować.
+
+Konkretny projekt i tech stack ustalane są live z grupą poprzez proces: research/dyskusja → PRD (Product Requirements Document) → Design System → ADR (Architecture Decision Records) → Plan z matrycą zależności zadań i sub-agentów → implementacja z sub-agentami.
 
 ---
 
@@ -27,10 +29,23 @@ Główne notatki i zasoby znajdziesz w folderze `/course-materials`:
 
 - 📓 [**Course Notes — AI in Programming**](course-materials/Course%20Notes%20-%20AI%20in%20Programming.md) — główne notatki: trendy, narzędzia, benchmarki, metodologie agentic coding, best practices.
 - 📅 [**Agenda kursu**](course-materials/course-agenda.md) — program 5-dniowego szkolenia.
-- 📜 Skrypty z poszczególnych dni (`course-materials/03-2026/day-*-full-script.md`)
-- 🔬 Materiały badawcze (`course-materials/Research/`)
-- 💡 Przykłady promptów (`course-materials/Prompt examples/`)
-- 🎓 Technika Ralph Wiggum Bash Loop (`course-materials/how-to-ralph-wiggum/`)
+- 📜 **Podsumowania** i **historia czatu Zoom** z poszczególnych dni (`course-materials/summary+chat-history`)
+- 📄 Przykłady promptów (`course-materials/Prompt examples/`), m.in.:
+  - [PRD generation](course-materials/Prompt%20examples/PRD-electronics-returns-complains-app.md)
+  - [Plan for SubAgents](course-materials/Prompt%20examples/Plan-SubAgents-matrix-dependency-map.md)
+  - [Design System reverse-engineering with Playwright](course-materials/Prompt%20examples/Design%20System%20reverse-engineering%20with%20Playwright.md)
+- 🎓 Technika Ralph Wiggum Bash Loop (`course-materials/how-to-ralph-wiggum/`) - obecnie Codex i Claude mają już funkcjonalności, które ją częściowo zastępują (np. `/loop` i `/goal`)
+- 🔬 Wyniki Deep Research (`course-materials/Research/`)
+- Claude Code example configs:
+  - `.bashrc` functions to use Claude CLI with other providers (e.g. OpenRouter, Z.ai): [course-materials/.bashrc](course-materials/.bashrc)
+  - `.claude/` example config folder for the user with `statusline.sh`, permissions and global instructions (`course-materials/.claude-example/`)
+
+---
+
+## Branche - Przykładowa aplikacja
+
+- Główny branch `main` zawiera materiały szkoleniowe i bazowe pliki z pustymi katalogami `app/` do budowania aplikacji oraz `docs/` do zapisywania PRD, ADR i planów.
+- Branch `feature/hardware-service-decision-copilot-prd` zawiera zaimplementowany przez agentów AI kod aplikacji szkoleniowej oraz gotowe pliki PRD, Design Guidelines, ADR i plany.
 
 ---
 
@@ -39,9 +54,8 @@ Główne notatki i zasoby znajdziesz w folderze `/course-materials`:
 ```
 app/                 Aplikacja budowana podczas kursu (start: pusty scaffold)
 assets/              Design tokens, logo, favicon (dodawane w trakcie kursu)
-docs/                PRD, ADR, design system (tworzone podczas kursu)
+docs/                PRD, ADR, design system, plany (tworzone podczas kursu)
 course-materials/    Notatki, skrypty, przykłady, badania
-examples/            Przykładowe konfiguracje agentów (Java/Spring Boot)
 ```
 
 ---
@@ -50,7 +64,7 @@ examples/            Przykładowe konfiguracje agentów (Java/Spring Boot)
 
 Kurs jest stack-agnostic. Technologie zostaną wybrane live z grupą podczas ADR. Możliwe opcje:
 
-- **TypeScript/Node.js** (demo prowadzącego): Next.js, Vercel AI SDK, Mastra
+- **TypeScript/Node.js** (demo prowadzącego): Next.js, Vercel AI SDK, (opcja: Mastra AI)
 - **Java**: Spring Boot, Spring AI (zobacz `examples/agent-configs/`)
 - Inne stacki wg preferencji uczestników
 
@@ -58,7 +72,7 @@ Kurs jest stack-agnostic. Technologie zostaną wybrane live z grupą podczas ADR
 
 ## Narzędzia AI
 
-Główny agent używany na kursu: **Claude Code** lub **OpenAI Codex CLI** (wybór zależy od preferencji grupy). Omawiane koncepcje są transferowalne na Gemini CLI, OpenCode, Cursor, Zed, Junie, Copilot i inne.
+Główny agent używany na kursie: **Claude Code** lub **OpenAI Codex** (wybór zależy od preferencji grupy). Omawiane koncepcje są transferowalne na Antigravity, OpenCode, Cursor, Zed, Junie, Copilot i inne.
 
 ---
 
@@ -68,7 +82,8 @@ Szczegóły w [`.env.example`](.env.example).
 
 Wymagane:
 - Klucz API (OpenAI, OpenRouter, lub inny provider)
-- Agent CLI (Claude Code lub Codex)
+- Agent AI z zapasem tokenów (np. Claude Code lub Codex)
+- Node.js i npm (do instalowania agentów CLI i skills, aplikacja może bazować np. na BE w Java lub Python)
 - Git
 
 ---

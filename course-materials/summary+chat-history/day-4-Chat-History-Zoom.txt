@@ -1,0 +1,241 @@
+2026-06-18 08:05:56 From Marcin To Everyone:
+	Dzień dobry!
+
+2026-06-18 08:10:23 From Łukasz Matuszewski To Everyone:
+	https://gemini.google.com/share/32b3f4cc75f2
+
+	Podsumowanie Video o Claude - co ma czego inni nie mają
+
+2026-06-18 08:12:21 From Łukasz Matuszewski To Everyone:
+	Poprawion Commands z nazwą modelu Haiku:
+	https://github.com/LucasMatuszewski/AI-Programming-Course-JSystem-15-06-2026/tree/main/.claude/commands/git
+
+2026-06-18 08:13:01 From Łukasz Matuszewski To Everyone:
+	Podsumowanie i historia czatu z każdego dnia:
+	https://github.com/LucasMatuszewski/AI-Programming-Course-JSystem-15-06-2026/tree/main/course-materials/summary%2Bchat-history
+
+2026-06-18 08:47:38 From Łukasz Matuszewski To Everyone:
+	Wirtualne Windows:
+	https://www.microsoft.com/en-us/windows-365
+
+2026-06-18 08:48:40 From Łukasz Matuszewski To Everyone:
+	https://partner.microsoft.com/en-us/partnership/partner-benefits-packages-benefits
+
+2026-06-18 08:50:54 From Łukasz Matuszewski To Everyone:
+	Translate the transcript provided below from Polish to English.
+
+	Rules:
+	1. Translate faithfully with proper English grammar, punctuation, and natural interpretation, but keep the meaning strictly the same.
+	2. Preserve the exact meaning and (as much as reasonably possible) the word order. Do not paraphrase or add/remove information.
+	3. Keep names, brands, product names, and technical terms exactly as written (do not translate them).
+	4. If something is unclear in Polish, choose the most likely interpretation, but do not invent details.
+	5. Use safe plain punctuation for dictation: straight apostrophe ', straight quote ", hyphen -, and three dots ... . Never use curly quotes, smart apostrophes, typographic dashes, bullets, emoji, tabs, control characters, or line breaks.
+	6. Return one single line of text unless the transcript explicitly asks for multiple lines.
+	7. Return ONLY the English translation (no notes, no explanations, no extra text).
+
+2026-06-18 08:50:56 From Łukasz Matuszewski To Everyone:
+
+
+	Names/terms that may appear and must be preserved exactly (or be corrected if misspelled):
+	Łukasz, Matuszewski, Beata, Edukey, ChatGPT, OpenClaw, Encore, Encore.ts, PayloadCMS, Claude Code, Claude Cowork, Codex, Tailwind, TailwindCSS, Playwright, OpenAI, AGENTS.md, React.js, Qwen, LoRA
+
+	Polish transcript to translate:
+	${output}
+
+2026-06-18 08:52:54 From Łukasz Matuszewski To Everyone:
+	Once a week, review all the settings of this project, concerning the Claude and Codex agents, and the Agents files and the Claude MD files and the Agent MD files, and check whether they are consistent with what is actually in the project's code, with library versions, with what we are doing in this project, and whether there are any inconsistencies there. Also check whether there is information included that is obvious to you and that you do not need, or that, in your opinion, should be removed because you already know it, without the help of these files, or whether there is information that is contradictory with each other and that could mislead you. Mock me once a week such a report on Fridays at 10 in the morning. Suggested changes in these configuration files regarding the agents in this project.
+
+2026-06-18 08:53:20 From Łukasz Matuszewski To Everyone:
+	Create a new Automation. Once a week, review all the settings of this project, concerning the Claude and Codex agents, and the Agents files and the Claude MD files and the Agent MD files, and check whether they are consistent with what is actually in the project's code, with library versions, with what we are doing in this project, and whether there are any inconsistencies there. Also check whether there is information included that is obvious to you and that you do not need, or that, in your opinion, should be removed because you already know it, without the help of these files, or whether there is information that is contradictory with each other and that could mislead you. Mock me once a week such a report on Fridays at 10 in the morning. Suggested changes in these configuration files regarding the agents in this project.
+
+2026-06-18 09:21:32 From Łukasz Matuszewski To Everyone:
+	https://www.skills.sh/
+
+	Instalator Skills i wyszukiwarka
+
+	Skill dla Next.js przykładowy
+	https://www.skills.sh/vercel-labs/next-skills/next-best-practices
+
+2026-06-18 09:32:46 From Łukasz Matuszewski To Everyone:
+	npx skills add https://github.com/vercel-labs/next-skills --skill next-best-practices
+
+2026-06-18 09:39:38 From Łukasz Matuszewski To Everyone:
+	Branch GitHub na którym tworzę kod aplikacji:
+	https://github.com/LucasMatuszewski/AI-Programming-Course-JSystem-15-06-2026/tree/feature/hardware-service-decision-copilot-prd
+
+2026-06-18 10:02:18 From Łukasz Matuszewski To Everyone:
+	Zmienne środowiskowe Windows
+	Image 2026-06-18 at 100209.png
+
+2026-06-18 10:17:01 From Łukasz Matuszewski To Everyone:
+	https://www.promptfoo.dev/
+
+	Testowanie promptów i modeli
+
+2026-06-18 10:18:53 From Łukasz Matuszewski To Everyone:
+	Platformy API dla aplikacji własnych:
+
+	https://platform.openai.com/login
+	https://platform.claude.com/login
+
+2026-06-18 10:39:10 From Łukasz Matuszewski To Everyone:
+	[$create-adr](C:\\Users\\labuser\\DEV\\AI-Programming-Course-JSystem-15-06-2026\\.agents\\skills\\create-adr\\SKILL.md) Analyze the Product Requarians Document [PRD-Product-Requirements-Document.md](C:/Users/labuser/DEV/AI-Programming-Course-JSystem-15-06-2026/docs/PRD-Product-Requirements-Document.md) and the exact business and functional requirements for the application we are creating. We are now in a new repository, where the application does not yet have any code. Your task now, based on this PRD document, that is, here the functional requirements of our application, is to prepare a precise research, and implementation details, and create Architecture Decision Records, one or several, which, based on your research, will help agents in implementing our solution using libraries:
+	next.js
+	ai-sdk from Vercel with ai-sdk UI components
+
+2026-06-18 10:39:12 From Łukasz Matuszewski To Everyone:
+
+	use OpenRouter as LLM provider, separate Multimodal LLM for image analyses and separate LLM for chat and text and decision about the complaint/return. You have envs in .env file but DO NOT READ IT, you [.env.example](C:/Users/labuser/DEV/AI-Programming-Course-JSystem-15-06-2026/.env.example) to know the names of the variables
+
+2026-06-18 10:42:05 From Łukasz Matuszewski To Everyone:
+	TUI code editors:
+	micro, fresh, nvim, vim
+
+2026-06-18 10:43:39 From Łukasz Matuszewski To Everyone:
+	ctrl+g - w CLI wejście do edytora domyślnego aby pisać prompta
+
+2026-06-18 10:46:59 From Łukasz Matuszewski To Everyone:
+	use OpenRouter as LLM provider, separate Multimodal LLM for image analyses and separate LLM for chat and text and decision about the complaint/return. You have envs in .env file but DO NOT READ IT, you .env.example to know the names of the variables
+
+2026-06-18 10:47:07 From Łukasz Matuszewski To Everyone:
+	[$create-adr](C:\\Users\\labuser\\DEV\\AI-Programming-Course-JSystem-15-06-2026\\.agents\\skills\\create-adr\\SKILL.md) Analyze the Product Requarians Document [PRD-Product-Requirements-Document.md](docs/PRD-Product-Requirements-Document.md) and the exact business and functional requirements for the application we are creating. We are now in a new repository, where the application does not yet have any code. Your task now, based on this PRD document, that is, here the functional requirements of our application, is to prepare a precise research, and implementation details, and create Architecture Decision Records, one or several, which, based on your research, will help agents in implementing our solution using libraries:
+	next.js
+	ai-sdk from Vercel with ai-sdk UI components
+
+2026-06-18 10:55:25 From Łukasz Matuszewski To Everyone:
+	12:10 koniec przerwy
+
+2026-06-18 11:19:57 From Łukasz Matuszewski To Everyone:
+	MCP Atlassian - Jira i Confluence:
+	https://github.com/atlassian/atlassian-mcp-server
+
+2026-06-18 11:23:42 From Łukasz Matuszewski To Everyone:
+	https://github.com/LucasMatuszewski/AI-Programming-Course-JSystem-15-06-2026/tree/feature/hardware-service-decision-copilot-prd/docs
+
+	Moje pliki z PRD
+
+2026-06-18 11:28:12 From Łukasz Matuszewski To Everyone:
+	[ADR](file;file:///c:/Users/labuser/DEV/AI-Programming-Course-JSystem-15-06-2026/docs/ADR) Review the documents in the ADR folder containing Architecture Decision Records here and compare them with the Product Requirements Dokuments documentation, which contains a functional description. Within this review, check whether this implementation is fully consistent with our functional requirements for this application, whether all the necessary elements are described, whether something is missing, whether something has been corrected. For now, focus on the review; do not introduce any changes in the code. [PRD-Product-Requirements-Document.md](file;file:///c:/Users/labuser/DEV/AI-Programming-Course-JSystem-15-06-2026/docs/PRD-Product-Requirements-Document.md)
+
+2026-06-18 11:53:03 From Łukasz Matuszewski To Everyone:
+	Suba-agents vs Agent Teams in Claude:
+	https://code.claude.com/docs/en/agent-teams
+
+2026-06-18 12:02:17 From Pawel To Everyone:
+	{1708A402-6F2B-4842-8D11-521B475CF639}.png
+
+2026-06-18 12:07:50 From Łukasz Matuszewski To Everyone:
+	Based on the attached Product Requirements document describing the functionality of our application, which we are currently building. Prepare very template-like wireframes for the 3 main views of this application. The first view will be the first view with a form, and the second view will be the view after the agent's response, when the agent enters chat mode. A third view, when the agent is already talking with this client and we have a few chat bubbles in the history. Please prepare a very template-like wireframe that will mainly show the functionality and the placement of elements, without going deeply into the design. Wireframes with hand-drawn style.
+
+2026-06-18 12:12:48 From Łukasz Matuszewski To Everyone:
+	https://gemini.google.com/share/ab1f9c453cc6
+
+	Wireframes aplikacji z Gemini Image
+
+2026-06-18 12:14:07 From Łukasz Matuszewski To Everyone:
+	Updated - 3 views:
+	https://gemini.google.com/share/641314283ffb
+
+2026-06-18 12:19:31 From Łukasz Matuszewski To Everyone:
+	[Gemini_Generated_Image_zagxlwzagxlwzagx%20%281%29.png](file;file:///c:/Users/labuser/DEV/AI-Programming-Course-JSystem-15-06-2026/assets/Gemini_Generated_Image_zagxlwzagxlwzagx%20%281%29.png) [Gemini_Generated_Image_zagxlwzagxlwzagx%20%282%29.png](file;file:///c:/Users/labuser/DEV/AI-Programming-Course-JSystem-15-06-2026/assets/Gemini_Generated_Image_zagxlwzagxlwzagx%20%282%29.png) [Gemini_Generated_Image_zagxlwzagxlwzagx.png](file;file:///c:/Users/labuser/DEV/AI-Programming-Course-JSystem-15-06-2026/assets/Gemini_Generated_Image_zagxlwzagxlwzagx.png)
+
+	Analyze these three wireframes, change their names, according to which view image contains, depending on the phase of the application with logic, and add the names of these files to Guidlines, Design Wireframes, so that they are as references to how this application is supposed to look fuctionally. And name these files as Wireframe with an additional step number in the name.
+
+2026-06-18 12:23:29 From Łukasz Matuszewski To Everyone:
+	C:\Users\labuser\DEV\AI-Programming-Course-JSystem-15-06-2026\course-materials\Prompt examples\Plan-SubAgents-matrix-dependency-map.md
+
+2026-06-18 12:24:55 From Łukasz Matuszewski To Everyone:
+	Koniec przerwy 14:05
+
+2026-06-18 12:26:22 From Kamil To Everyone:
+	ja zw
+
+2026-06-18 12:26:45 From Łukasz Matuszewski To Everyone:
+	https://github.com/LucasMatuszewski/AI-Programming-Course-JSystem-15-06-2026/blob/feature/hardware-service-decision-copilot-prd/course-materials/Prompt%20examples/Plan-SubAgents-matrix-dependency-map.md
+
+2026-06-18 13:18:09 From Łukasz Matuszewski To Everyone:
+	Evals, LLM Evaluation
+	Red Teaming
+	Promptfoo https://www.promptfoo.dev/docs/intro/
+	https://playwright.dev/
+
+	Testy agentów: https://playwright.dev/docs/test-agents
+
+2026-06-18 13:29:29 From Łukasz Matuszewski To Everyone:
+	https://developers.openai.com/codex/subagents
+
+2026-06-18 13:29:51 From Łukasz Matuszewski To Everyone:
+	Współdzielenie agentów / skills / MCP itd.
+
+	Np custom plugin dla firmy:
+	https://developers.openai.com/codex/plugins/build
+
+2026-06-18 13:30:52 From Łukasz Matuszewski To Everyone:
+	Claude Subagents: https://code.claude.com/docs/en/sub-agents
+
+2026-06-18 13:31:12 From Łukasz Matuszewski To Everyone:
+	Współdzielenie w firmie - custom plugin firmowy:
+	https://code.claude.com/docs/en/plugins
+
+2026-06-18 13:32:53 From Łukasz Matuszewski To Everyone:
+	Zarządzanie kontem firmowym - wspólne ustawienia, zasady itp dla firmy:
+	https://code.claude.com/docs/en/admin-setup
+	https://developers.openai.com/codex/enterprise/admin-setup
+
+2026-06-18 14:02:48 From Łukasz Matuszewski To Everyone:
+	https://github.com/LucasMatuszewski/AI-Programming-Course-JSystem-15-06-2026/blob/main/course-materials/Course%20Notes%20-%20AI%20in%20Programming.md#sub-agents
+
+
+	Subagents - docs
+
+2026-06-18 14:04:50 From Łukasz Matuszewski To Everyone:
+	Claude Code Rules - do weryfikacji czy jeszcze działają:
+	https://code.claude.com/docs/en/glossary#rules
+	https://code.claude.com/docs/en/memory#organize-rules-with-claude/rules/
+	https://code.claude.com/docs/en/memory#path-specific-rules
+
+2026-06-18 14:06:22 From Łukasz Matuszewski To Everyone:
+	**/*.test.ts"
+
+2026-06-18 14:07:03 From Łukasz Matuszewski To Everyone:
+	https://cursor.com/docs/rules
+
+2026-06-18 14:12:46 From Łukasz Matuszewski To Everyone:
+	Prompt tworzenie planu dla Codex:
+	https://github.com/LucasMatuszewski/AI-Programming-Course-JSystem-15-06-2026/blob/feature/hardware-service-decision-copilot-prd/course-materials/Prompt%20examples/Plan-SubAgents-matrix-dependency-map.md
+
+2026-06-18 14:24:30 From Łukasz Matuszewski To Everyone:
+	Name the plan with "*-claude.md" sufix
+
+2026-06-18 14:37:47 From Łukasz Matuszewski To Everyone:
+	use UI components from AI-SDK, you should search docs how to use them and what conventions to follow
+
+2026-06-18 14:44:27 From Wojciech To Everyone:
+	{A0A979BF-E4F3-464D-91F2-DB4242BF189A}.png
+
+2026-06-18 14:53:41 From Łukasz Matuszewski To Everyone:
+	.env
+
+
+	# Alternative: Use OpenRouter API key (fallback if OPENAI_API_KEY not set)
+	# Get your key from: https://openrouter.ai/keys
+	OPENROUTER_API_KEY=xxxx
+
+	# OpenRouter API base URL
+	OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
+
+	# Default model
+	# Examples: openai/gpt-5.4-mini, openai/gpt-5.4, anthropic/claude-sonnet-4.5
+	OPENROUTER_MODEL=openai/gpt-5.4-mini
+
+2026-06-18 14:58:45 From Łukasz Matuszewski To Everyone:
+	Always real API, but use deterministic assertions on responses, e.g. if UI element was displayed (like chat bubble with AI response with decision), and if specific keywords were found like "rejection" "decision", etc. (create a list of example keywords, and expect at least 1 to be found, do not check if decision was correct at this point), you can also check the length of the response and use some minimal 50 characters to find if response was probably wrong as a decision (too short).
+
+2026-06-18 15:22:13 From Łukasz Matuszewski To Everyone:
+	[poc-implementation-plan.md](C:/Users/labuser/DEV/AI-Programming-Course-JSystem-15-06-2026/docs/plans/poc-implementation-plan.md) implement this plan, don't stop unit you complete whole plan, this is your goal
+
+2026-06-18 15:23:52 From Olivia To Everyone:
+	Dziękuję za dzisiaj. Do jutra.
+
+2026-06-18 15:29:46 From Łukasz Matuszewski To Everyone:
+	https://github.com/LucasMatuszewski/AI-Programming-Course-JSystem-15-06-2026/tree/feature/hardware-service-decision-copilot-prd/course-materials/summary%2Bchat-history
