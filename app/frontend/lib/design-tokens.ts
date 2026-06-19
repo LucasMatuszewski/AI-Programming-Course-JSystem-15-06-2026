@@ -1,4 +1,4 @@
-import tokens from "../../../assets/design-tokens.json";
+import tokens from "../design-tokens.json";
 
 export const githubTheme = tokens;
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import type { ImageRetryResponse } from "@/lib/api/sessions";
 
 type ImageRetryProps = {
@@ -13,12 +13,14 @@ export function ImageRetry({ retry, terminalState, onRetry }: ImageRetryProps) {
   const [image, setImage] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isPending, setIsPending] = useState(false);
+  const imageInputRef = useRef<HTMLInputElement | null>(null);
   const isTerminal = terminalState === "IN_PERSON_VERIFICATION_REQUIRED";
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const selectedImage = image ?? imageInputRef.current?.files?.[0] ?? null;
 
-    if (!image) {
+    if (!selectedImage) {
       setError("Dodaj jedno nowe zdjęcie sprzętu.");
       return;
     }
@@ -26,8 +28,11 @@ export function ImageRetry({ retry, terminalState, onRetry }: ImageRetryProps) {
     setIsPending(true);
     setError(null);
     try {
-      await onRetry(image);
+      await onRetry(selectedImage);
       setImage(null);
+      if (imageInputRef.current) {
+        imageInputRef.current.value = "";
+      }
     } catch (caught) {
       setError(toMessage(caught));
     } finally {
@@ -64,6 +69,7 @@ export function ImageRetry({ retry, terminalState, onRetry }: ImageRetryProps) {
                 setImage(files[0] ?? null);
                 setError(null);
               }}
+              ref={imageInputRef}
               type="file"
             />
           </label>

@@ -26,10 +26,10 @@ export class CaseFlowPage {
   }
 
   async submitCase(data: CaseFormData) {
-    await this.page.getByRole("radio", { name: data.requestType }).click();
+    await this.page.getByText(data.requestType, { exact: true }).click();
     await this.page
       .getByLabel(/kategoria sprzętu/i)
-      .selectOption({ label: new RegExp(data.category, "i") });
+      .selectOption(data.category);
     await this.page.getByLabel(/model lub nazwa/i).fill(data.equipmentName);
     await this.page.getByLabel(/data zakupu/i).fill(data.purchaseDate);
 
@@ -38,14 +38,14 @@ export class CaseFlowPage {
     }
 
     await this.page
-      .getByLabel(/zdjęcie|fotografia|plik/i)
+      .getByLabel("Zdjęcie sprzętu")
       .setInputFiles(data.imagePath);
     await this.submitButton.click();
   }
 
   async uploadRetryImage(imagePath: string) {
     await this.page
-      .getByLabel(/nowe zdjęcie|zdjęcie|fotografia|plik/i)
+      .getByLabel("Nowe zdjęcie sprzętu")
       .setInputFiles(imagePath);
     await this.page
       .getByRole("button", { name: /ponów|prześlij|wyślij/i })

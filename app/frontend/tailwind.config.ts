@@ -5,7 +5,7 @@ import type { Config } from "tailwindcss";
 
 const tokenPath = resolve(
   dirname(fileURLToPath(import.meta.url)),
-  "../../assets/design-tokens.json"
+  "design-tokens.json"
 );
 const tokens = JSON.parse(readFileSync(tokenPath, "utf8"));
 
