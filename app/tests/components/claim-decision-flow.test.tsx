@@ -86,6 +86,9 @@ describe("przepływ decyzji reklamacyjnej", () => {
 
     expect(await screen.findByText(/nie podlega reklamacji/i)).toBeInTheDocument();
     expect(
+      screen.queryByRole("heading", { name: /dane roweru/i }),
+    ).not.toBeInTheDocument();
+    expect(
       screen.getByRole("button", { name: /rozpocznij rozmowę z ai/i }),
     ).toBeInTheDocument();
     expect(

@@ -86,6 +86,53 @@ export function ClaimSubmissionApp() {
     setErrors((current) => ({ ...current, photos: undefined }));
   }
 
+  function resetFlow() {
+    setForm(initialForm);
+    setErrors({});
+    setDecision(null);
+    setApiError("");
+    setPhase("form");
+  }
+
+  if (phase === "decision" && decision) {
+    return (
+      <main className="min-h-screen px-5 py-6 text-text-primary sm:px-8 lg:px-12">
+        <header className="mx-auto flex w-full max-w-6xl items-center justify-between gap-5 py-3">
+          <Link className="font-display text-xl font-black uppercase text-text-primary" href="/">
+            ClaimRide
+          </Link>
+          <nav aria-label="Główne" className="hidden items-center gap-5 sm:flex">
+            <button className="nav-link" onClick={resetFlow} type="button">
+              Nowe zgłoszenie
+            </button>
+            <Link className="nav-link" href="/service">
+              Panel obsługi
+            </Link>
+          </nav>
+        </header>
+
+        <section className="mx-auto w-full max-w-6xl py-10 lg:py-16" id="decyzja">
+          <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="eyebrow">Decyzja</p>
+              <h1 className="font-display text-5xl font-black uppercase leading-none text-text-primary sm:text-6xl">
+                Wynik wstępnej oceny
+              </h1>
+            </div>
+            <button className="secondary-button" onClick={resetFlow} type="button">
+              Nowe zgłoszenie
+            </button>
+          </div>
+          <DecisionFlow
+            decision={decision}
+            originalPhotoCount={form.photos.length}
+            onDecisionChange={setDecision}
+          />
+        </section>
+      </main>
+    );
+  }
+
   return (
     <main className="min-h-screen px-5 py-6 text-text-primary sm:px-8 lg:px-12">
       <header className="mx-auto flex w-full max-w-6xl items-center justify-between gap-5 py-3">
