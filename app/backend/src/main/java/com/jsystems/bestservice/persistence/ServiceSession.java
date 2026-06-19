@@ -123,6 +123,21 @@ public class ServiceSession {
         chatMessages.add(chatMessage);
     }
 
+    public void markImageRetryRequired() {
+        this.status = SessionStatus.IMAGE_RETRY_REQUIRED;
+        this.terminalState = null;
+    }
+
+    public void markDecided(TerminalState terminalState) {
+        this.status = SessionStatus.DECIDED;
+        this.terminalState = terminalState;
+    }
+
+    public void markClosed(TerminalState terminalState) {
+        this.status = SessionStatus.CLOSED;
+        this.terminalState = terminalState;
+    }
+
     public UUID getId() {
         return id;
     }

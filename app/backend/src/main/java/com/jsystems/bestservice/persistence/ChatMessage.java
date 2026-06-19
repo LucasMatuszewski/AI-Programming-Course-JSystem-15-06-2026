@@ -76,8 +76,20 @@ public class ChatMessage {
         return contentPl;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public ChatRole getRole() {
+        return role;
+    }
+
     public int getSequenceNumber() {
         return sequenceNumber;
+    }
+
+    public MessageType getMessageType() {
+        return messageType;
     }
 
     public Instant getCreatedAt() {

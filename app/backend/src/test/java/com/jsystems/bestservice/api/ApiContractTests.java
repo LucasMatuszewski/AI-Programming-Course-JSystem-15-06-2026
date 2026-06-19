@@ -1,6 +1,11 @@
 package com.jsystems.bestservice.api;
 
+import com.jsystems.bestservice.caseintake.CaseSubmissionPipeline;
+import com.jsystems.bestservice.caseintake.api.ChatMessageResponse;
+import com.jsystems.bestservice.caseintake.api.DecisionResponse;
+import com.jsystems.bestservice.caseintake.api.SessionResponse;
 import com.jsystems.bestservice.persistence.ServiceSessionRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -14,6 +19,8 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 import static org.hamcrest.Matchers.containsString;
@@ -23,6 +30,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest(properties = {
         "spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,"
@@ -38,7 +47,40 @@ class ApiContractTests {
     private MockMvc mockMvc;
 
     @MockitoBean
+    private CaseSubmissionPipeline caseSubmissionPipeline;
+
+    @MockitoBean
     private ServiceSessionRepository serviceSessionRepository;
+
+    @BeforeEach
+    void setUpPipelineResponse() {
+        when(caseSubmissionPipeline.submit(any())).thenReturn(new SessionResponse(
+                UUID.fromString("99999999-9999-9999-9999-999999999999"),
+                "return",
+                "DECIDED",
+                null,
+                1,
+                2,
+                new DecisionResponse(
+                        "human_verification_required",
+                        null,
+                        null,
+                        "Zgłoszenie zostało przyjęte do dalszej weryfikacji.",
+                        "Poczekaj na dalszą informację w czacie.",
+                        "stub_contract",
+                        1
+                ),
+                null,
+                List.of(new ChatMessageResponse(
+                        UUID.fromString("88888888-8888-8888-8888-888888888888"),
+                        "SYSTEM",
+                        "Dzień dobry. Zgłoszenie zostało przyjęte do dalszej weryfikacji.",
+                        1,
+                        "INITIAL_DECISION",
+                        Instant.now()
+                ))
+        ));
+    }
 
     @Test
     void complaintWithoutReasonReturnsValidationFailed() throws Exception {

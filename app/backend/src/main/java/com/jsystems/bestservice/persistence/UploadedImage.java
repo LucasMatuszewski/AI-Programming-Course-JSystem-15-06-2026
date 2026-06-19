@@ -104,6 +104,11 @@ public class UploadedImage {
         this.analysis = analysis;
     }
 
+    public void markAnalysisResult(boolean evaluable, String retryReasonPl) {
+        this.evaluable = evaluable;
+        this.retryReasonPl = retryReasonPl;
+    }
+
     public UUID getId() {
         return id;
     }

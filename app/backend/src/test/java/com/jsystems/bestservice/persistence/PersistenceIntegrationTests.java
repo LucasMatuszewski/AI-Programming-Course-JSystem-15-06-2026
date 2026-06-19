@@ -61,7 +61,7 @@ class PersistenceIntegrationTests {
 
     @Test
     void flywayMigratesCleanPostgresql() {
-        assertThat(flyway.info().current().getVersion().getVersion()).isEqualTo("1");
+        assertThat(flyway.info().current().getVersion().getVersion()).isEqualTo("2");
 
         List<String> tableNames = jdbcTemplate.queryForList("""
                 select table_name

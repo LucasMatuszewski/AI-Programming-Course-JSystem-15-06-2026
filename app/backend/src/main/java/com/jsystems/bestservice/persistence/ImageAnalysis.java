@@ -49,6 +49,9 @@ public class ImageAnalysis {
     @Column(nullable = false, length = 100)
     private String model;
 
+    @Column(name = "prompt_version", nullable = false, length = 100)
+    private String promptVersion;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
@@ -65,7 +68,8 @@ public class ImageAnalysis {
             String resaleConditionPl,
             boolean unclear,
             String summaryPl,
-            String model
+            String model,
+            String promptVersion
     ) {
         this.id = UUID.randomUUID();
         this.image = image;
@@ -78,6 +82,7 @@ public class ImageAnalysis {
         this.unclear = unclear;
         this.summaryPl = summaryPl;
         this.model = model;
+        this.promptVersion = promptVersion;
         this.createdAt = Instant.now();
     }
 
@@ -93,6 +98,34 @@ public class ImageAnalysis {
             String summaryPl,
             String model
     ) {
+        return create(
+                image,
+                visibleDamagePl,
+                defectIndicatorsPl,
+                usageSignsPl,
+                possibleCauseIndicatorsPl,
+                missingOrAlteredPartsPl,
+                resaleConditionPl,
+                unclear,
+                summaryPl,
+                model,
+                "unknown"
+        );
+    }
+
+    public static ImageAnalysis create(
+            UploadedImage image,
+            String visibleDamagePl,
+            String defectIndicatorsPl,
+            String usageSignsPl,
+            String possibleCauseIndicatorsPl,
+            String missingOrAlteredPartsPl,
+            String resaleConditionPl,
+            boolean unclear,
+            String summaryPl,
+            String model,
+            String promptVersion
+    ) {
         ImageAnalysis analysis = new ImageAnalysis(
                 image,
                 visibleDamagePl,
@@ -103,7 +136,8 @@ public class ImageAnalysis {
                 resaleConditionPl,
                 unclear,
                 summaryPl,
-                model
+                model,
+                promptVersion
         );
         image.attachAnalysis(analysis);
         return analysis;
@@ -115,5 +149,13 @@ public class ImageAnalysis {
 
     public UploadedImage getImage() {
         return image;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public String getPromptVersion() {
+        return promptVersion;
     }
 }

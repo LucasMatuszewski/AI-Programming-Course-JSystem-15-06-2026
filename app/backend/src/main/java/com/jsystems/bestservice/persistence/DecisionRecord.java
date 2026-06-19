@@ -47,6 +47,12 @@ public class DecisionRecord {
     @Column(name = "rule_category", nullable = false, length = 100)
     private String ruleCategory;
 
+    @Column(nullable = false, length = 100)
+    private String model;
+
+    @Column(name = "prompt_version", nullable = false, length = 100)
+    private String promptVersion;
+
     @Column(name = "previous_decision_id")
     private UUID previousDecisionId;
 
@@ -65,7 +71,9 @@ public class DecisionRecord {
             String justificationPl,
             String nextStepsPl,
             String ruleCategory,
-            UUID previousDecisionId
+            UUID previousDecisionId,
+            String model,
+            String promptVersion
     ) {
         this.id = UUID.randomUUID();
         this.session = session;
@@ -77,6 +85,8 @@ public class DecisionRecord {
         this.nextStepsPl = nextStepsPl;
         this.ruleCategory = ruleCategory;
         this.previousDecisionId = previousDecisionId;
+        this.model = model;
+        this.promptVersion = promptVersion;
         this.createdAt = Instant.now();
     }
 
@@ -91,6 +101,34 @@ public class DecisionRecord {
             String ruleCategory,
             UUID previousDecisionId
     ) {
+        return create(
+                session,
+                version,
+                status,
+                rejectionType,
+                rejectionReasonPl,
+                justificationPl,
+                nextStepsPl,
+                ruleCategory,
+                previousDecisionId,
+                "backend-rules-v1",
+                "decision-rules-v1"
+        );
+    }
+
+    public static DecisionRecord create(
+            ServiceSession session,
+            int version,
+            DecisionStatus status,
+            RejectionType rejectionType,
+            String rejectionReasonPl,
+            String justificationPl,
+            String nextStepsPl,
+            String ruleCategory,
+            UUID previousDecisionId,
+            String model,
+            String promptVersion
+    ) {
         DecisionRecord decisionRecord = new DecisionRecord(
                 session,
                 version,
@@ -100,7 +138,9 @@ public class DecisionRecord {
                 justificationPl,
                 nextStepsPl,
                 ruleCategory,
-                previousDecisionId
+                previousDecisionId,
+                model,
+                promptVersion
         );
         session.addDecisionRecord(decisionRecord);
         return decisionRecord;
@@ -110,8 +150,40 @@ public class DecisionRecord {
         return version;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public DecisionStatus getStatus() {
+        return status;
+    }
+
+    public RejectionType getRejectionType() {
+        return rejectionType;
+    }
+
+    public String getRejectionReasonPl() {
+        return rejectionReasonPl;
+    }
+
     public String getJustificationPl() {
         return justificationPl;
+    }
+
+    public String getNextStepsPl() {
+        return nextStepsPl;
+    }
+
+    public String getRuleCategory() {
+        return ruleCategory;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public String getPromptVersion() {
+        return promptVersion;
     }
 
     public Instant getCreatedAt() {

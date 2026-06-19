@@ -1,15 +1,17 @@
 package com.jsystems.bestservice.caseintake.api;
 
+import com.jsystems.bestservice.caseintake.CaseSubmissionCommand;
+import com.jsystems.bestservice.caseintake.CaseSubmissionPipeline;
 import com.jsystems.bestservice.common.api.ApiErrorCode;
 import com.jsystems.bestservice.common.api.ApiException;
 import com.jsystems.bestservice.common.config.UploadProperties;
+import com.jsystems.bestservice.persistence.EquipmentCategory;
+import com.jsystems.bestservice.persistence.RequestType;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.unit.DataSize;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.Instant;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -40,14 +42,25 @@ class SessionService {
     );
 
     private final UploadProperties uploadProperties;
+    private final CaseSubmissionPipeline submissionPipeline;
 
-    SessionService(UploadProperties uploadProperties) {
+    SessionService(UploadProperties uploadProperties, CaseSubmissionPipeline submissionPipeline) {
         this.uploadProperties = uploadProperties;
+        this.submissionPipeline = submissionPipeline;
     }
 
     SessionResponse createSession(CreateSessionRequest request) {
         validateSessionRequest(request);
-        return decidedSession(UUID.randomUUID(), normalize(request.getRequestType()));
+        return submissionPipeline.submit(new CaseSubmissionCommand(
+                UUID.randomUUID(),
+                toRequestType(request.getRequestType()),
+                toEquipmentCategory(request.getEquipmentCategory()),
+                request.getEquipmentNameOrModel().trim(),
+                request.getPurchaseDate(),
+                request.getReason() == null ? "" : request.getReason().trim(),
+                request.getImage(),
+                1
+        ));
     }
 
     SessionResponse createImageAttempt(UUID sessionId, MultipartFile image) {
@@ -120,35 +133,16 @@ class SessionService {
         }
     }
 
-    private SessionResponse decidedSession(UUID sessionId, String requestType) {
-        DecisionResponse decision = new DecisionResponse(
-                "human_verification_required",
-                null,
-                null,
-                "Zgłoszenie zostało przyjęte do dalszej weryfikacji.",
-                "Poczekaj na dalszą informację w czacie.",
-                "stub_contract",
-                1
-        );
-        ChatMessageResponse firstMessage = new ChatMessageResponse(
-                UUID.randomUUID(),
-                "SYSTEM",
-                "Dzień dobry. Zgłoszenie zostało przyjęte do dalszej weryfikacji.",
-                1,
-                "INITIAL_DECISION",
-                Instant.now()
-        );
-        return new SessionResponse(
-                sessionId,
-                requestType,
-                "DECIDED",
-                null,
-                1,
-                2,
-                decision,
-                null,
-                List.of(firstMessage)
-        );
+    private RequestType toRequestType(String value) {
+        return switch (normalize(value)) {
+            case "complaint" -> RequestType.COMPLAINT;
+            case "return" -> RequestType.RETURN;
+            default -> throw new IllegalArgumentException("Unsupported request type: " + value);
+        };
+    }
+
+    private EquipmentCategory toEquipmentCategory(String value) {
+        return EquipmentCategory.valueOf(normalize(value).toUpperCase(Locale.ROOT));
     }
 
     private String normalize(String value) {

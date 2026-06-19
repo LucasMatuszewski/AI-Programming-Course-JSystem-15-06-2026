@@ -4,7 +4,9 @@ import com.jsystems.bestservice.persistence.DecisionStatus;
 import com.jsystems.bestservice.persistence.RejectionType;
 import com.jsystems.bestservice.persistence.RequestType;
 import com.jsystems.bestservice.persistence.TerminalState;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DecisionRuleService {
 
     public DecisionResult decideInitial(DecisionInput input, ImageObservations observations) {
