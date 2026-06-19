@@ -1,0 +1,11 @@
+best-service:
+  upload:
+    root: ./target/test-uploads
+    max-image-size: 8MB
+  cors:
+    allowed-origins:
+      - http://localhost:3000
+  openai:
+    api-key: test-key-not-used
+    text-model: test-text-model
+    vision-model: test-vision-model

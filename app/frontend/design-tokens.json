@@ -1,0 +1,160 @@
+{
+  "source": {
+    "name": "GitHub",
+    "url": "https://github.com",
+    "capturedAt": "2026-06-17",
+    "rawExtraction": "assets/github-extracted-styles.json"
+  },
+  "colors": {
+    "brand": {
+      "primary": "#0969da",
+      "primaryDark": "#1f6feb",
+      "success": "#1f883d",
+      "successHero": "#08872b",
+      "danger": "#d1242f",
+      "attention": "#d29922",
+      "accent": "#4493f8"
+    },
+    "background": {
+      "canvas": "#ffffff",
+      "subtle": "#f6f8fa",
+      "dark": "#0d1117",
+      "darkElevated": "#161b22",
+      "overlay": "rgba(46, 55, 74, 0.82)"
+    },
+    "text": {
+      "primary": "#1f2328",
+      "secondary": "#59636e",
+      "muted": "#818b98",
+      "onDark": "#ffffff",
+      "onDarkMuted": "rgba(255, 255, 255, 0.75)",
+      "inverse": "#f0f6fc"
+    },
+    "border": {
+      "default": "#d1d9e0",
+      "muted": "rgba(209, 217, 224, 0.7)",
+      "dark": "#30363d",
+      "accentMuted": "rgba(187, 128, 9, 0.4)"
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "primary": "\"Mona Sans\", \"Mona Sans VF\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Noto Sans\", Helvetica, Arial, sans-serif",
+      "display": "\"Mona Sans VF\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Noto Sans\", Helvetica, Arial, sans-serif",
+      "mono": "\"Mona Sans Mono\", \"Monaspace Neon\", ui-monospace, SFMono-Regular, Consolas, \"Liberation Mono\", Menlo, monospace"
+    },
+    "fontWeights": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    },
+    "fontSize": {
+      "xs": "12px",
+      "sm": "14px",
+      "base": "16px",
+      "lg": "20px",
+      "xl": "24px",
+      "2xl": "32px"
+    },
+    "lineHeight": {
+      "tight": "1.25",
+      "base": "1.5",
+      "relaxed": "1.6",
+      "body": "21px",
+      "heading": "1.5"
+    }
+  },
+  "spacing": {
+    "1": "4px",
+    "2": "8px",
+    "3": "12px",
+    "4": "16px",
+    "5": "20px",
+    "6": "24px",
+    "8": "32px",
+    "10": "40px",
+    "12": "48px"
+  },
+  "borderRadius": {
+    "none": "0px",
+    "sm": "3px",
+    "md": "6px",
+    "lg": "12px",
+    "full": "999px",
+    "circle": "50%"
+  },
+  "shadow": {
+    "card": "rgba(209, 217, 224, 0.25) 0 0 0 1px, rgba(37, 41, 46, 0.04) 0 6px 12px -3px, rgba(37, 41, 46, 0.12) 0 6px 18px 0",
+    "floating": "rgba(37, 41, 46, 0.24) 0 40px 80px 0",
+    "insetBorder": "rgb(209, 217, 224) 0 -1px 0 0 inset"
+  },
+  "components": {
+    "header": {
+      "backgroundColor": "#0d1117",
+      "color": "#ffffff",
+      "padding": "16px 0",
+      "fontSize": "16px",
+      "lineHeight": "24px"
+    },
+    "nav": {
+      "color": "#ffffff",
+      "fontSize": "16px",
+      "fontWeight": 400,
+      "itemPadding": "8px"
+    },
+    "button": {
+      "primary": {
+        "backgroundColor": "#1f883d",
+        "color": "#ffffff",
+        "padding": "6px 20px",
+        "borderRadius": "6px",
+        "fontSize": "16px",
+        "fontWeight": 400,
+        "lineHeight": "24px",
+        "border": "1px solid transparent",
+        "minHeight": "43px"
+      },
+      "secondaryDark": {
+        "backgroundColor": "transparent",
+        "color": "#ffffff",
+        "padding": "4px 12px",
+        "borderRadius": "6px",
+        "fontSize": "14px",
+        "fontWeight": 400,
+        "border": "1px solid #d1d9e0",
+        "minHeight": "32px"
+      },
+      "subtle": {
+        "backgroundColor": "#f6f8fa",
+        "color": "#1f2328",
+        "padding": "5px 12px",
+        "borderRadius": "6px",
+        "fontSize": "14px",
+        "border": "1px solid #d1d9e0"
+      }
+    },
+    "input": {
+      "backgroundColor": "transparent",
+      "color": "#ffffff",
+      "placeholderColor": "rgba(255, 255, 255, 0.75)",
+      "border": "1px solid rgba(209, 217, 224, 0.7)",
+      "borderRadius": "6px",
+      "fontSize": "14px",
+      "padding": "5px 12px"
+    },
+    "card": {
+      "backgroundColor": "#ffffff",
+      "color": "#1f2328",
+      "border": "1px solid #d1d9e0",
+      "borderRadius": "6px",
+      "boxShadow": "rgba(209, 217, 224, 0.25) 0 0 0 1px, rgba(37, 41, 46, 0.04) 0 6px 12px -3px, rgba(37, 41, 46, 0.12) 0 6px 18px 0"
+    },
+    "promoBar": {
+      "backgroundColor": "#f6f8fa",
+      "color": "#59636e",
+      "borderColor": "#d1d9e0",
+      "borderRadius": "6px"
+    }
+  }
+}

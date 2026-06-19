@@ -30,6 +30,10 @@ playwright-report/
 logs/
 *.log
 
+# Local uploads
+var/uploads/
+app/backend/var/uploads/
+
 # Secrets / credentials
 .env
 .env.local
