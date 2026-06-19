@@ -4,8 +4,8 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Asystent serwisowy",
-  description: "Wstępna aplikacja Next.js dla asystenta serwisowego"
+  title: "Copilot ds. decyzji o serwisie sprzętu",
+  description: "Wstępna ocena zgłoszeń serwisowych i zwrotów sprzętu."
 };
 
 export default function RootLayout({
@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pl">
-      <body>{children}</body>
+      <body className="app-body">{children}</body>
     </html>
   );
 }

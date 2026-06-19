@@ -1,10 +1,255 @@
 @import "tailwindcss";
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
+  --color-brand-primary: #1ed760;
+  --color-brand-primary-hover: #3be477;
+  --color-brand-primary-active: #1aaf4e;
+  --color-background-default: #000000;
+  --color-background-base: #121212;
+  --color-background-tinted: #181818;
+  --color-background-elevated: #1f1f1f;
+  --color-background-elevated-highlight: #2a2a2a;
+  --color-background-press: #333333;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #b3b3b3;
+  --color-text-muted: #7c7c7c;
+  --color-text-on-brand: #000000;
+  --color-border-subtle: rgba(255, 255, 255, 0.1);
+  --font-primary: "Spotify Mix", "Circular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-title: "Spotify Mix Title", "Circular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-background-default);
 }
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.app-body {
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--color-background-base) 0%, var(--color-background-default) 72%);
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+}
+
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.shell-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem clamp(1rem, 4vw, 2rem);
+  color: var(--color-text-secondary);
+}
+
+.shell-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  color: var(--color-text-primary);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.shell-brand-mark {
+  width: 1.75rem;
+  height: 1.75rem;
+  flex: 0 0 auto;
+  color: var(--color-brand-primary);
+}
+
+.shell-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.shell-nav-item {
+  border-radius: 9999px;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0.625rem 0.875rem;
+}
+
+.shell-nav-item-active {
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+}
+
+.shell-main {
+  display: grid;
+  flex: 1;
+  grid-template-columns: minmax(0, 0.95fr) minmax(20rem, 1.05fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin: 0 auto;
+  max-width: 74rem;
+  padding: clamp(1rem, 4vw, 2rem);
+  width: 100%;
+}
+
+.shell-hero {
+  align-self: center;
+  padding-block: clamp(2rem, 8vw, 5rem);
+}
+
+.shell-kicker {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 0 1rem;
+}
+
+.shell-hero h1 {
+  color: var(--color-text-primary);
+  font-family: var(--font-title);
+  font-size: 4.5rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.05;
+  margin: 0;
+  max-width: 11ch;
+}
+
+.shell-lead {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 1.5rem 0 0;
+  max-width: 34rem;
+}
+
+.shell-primary-action {
+  align-items: center;
+  background: var(--color-brand-primary);
+  border: 0;
+  border-radius: 9999px;
+  color: var(--color-text-on-brand);
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1;
+  margin-top: 2rem;
+  min-height: 3rem;
+  padding: 0.75rem 2rem;
+  transition:
+    background-color 160ms ease,
+    transform 160ms ease;
+}
+
+.shell-primary-action:hover {
+  background: var(--color-brand-primary-hover);
+  transform: scale(1.04);
+}
+
+.shell-primary-action:active {
+  background: var(--color-brand-primary-active);
+}
+
+.shell-workspace {
+  align-self: center;
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+
+.shell-panel,
+.shell-status {
+  background: var(--color-background-tinted);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.shell-panel {
+  min-height: 22rem;
+  padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+.shell-panel-header {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.shell-step-badge {
+  background: var(--color-background-elevated);
+  border-radius: 9999px;
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  justify-self: start;
+  line-height: 1;
+  padding: 0.5rem 0.75rem;
+}
+
+.shell-panel h2,
+.shell-status h2 {
+  color: var(--color-text-primary);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.shell-panel p,
+.shell-status p {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 1rem 0 0;
+}
+
+.shell-status {
+  padding: 1rem;
+}
+
+@media (max-width: 760px) {
+  .shell-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .shell-nav {
+    justify-content: flex-start;
+  }
+
+  .shell-main {
+    grid-template-columns: 1fr;
+  }
+
+  .shell-hero {
+    padding-block: 1.5rem 0.5rem;
+  }
+
+  .shell-hero h1 {
+    font-size: 3rem;
+    max-width: 12ch;
+  }
+
+  .shell-primary-action {
+    width: 100%;
+  }
 }
