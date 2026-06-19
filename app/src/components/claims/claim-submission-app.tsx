@@ -141,7 +141,7 @@ export function ClaimSubmissionApp() {
         </Link>
         <nav aria-label="Główne" className="hidden items-center gap-5 sm:flex">
           <a className="nav-link" href="#formularz">Zgłoszenie</a>
-          <a className="nav-link" href="#decyzja">Decyzja</a>
+          <Link className="nav-link" href="/service">Panel obsługi</Link>
         </nav>
       </header>
 
@@ -316,10 +316,13 @@ function ClarificationForm({
   const [clarification, setClarification] = useState("");
   const [photos, setPhotos] = useState<File[]>([]);
   const [error, setError] = useState("");
+  const [feedback, setFeedback] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const remainingPhotos = PHOTO_LIMIT - originalPhotoCount;
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setFeedback("");
     if (!clarification.trim()) {
       setError("Dodaj doprecyzowanie problemu.");
       return;
@@ -331,11 +334,18 @@ function ClarificationForm({
     const formData = new FormData();
     formData.set("clarification", clarification.trim());
     photos.forEach((photo) => formData.append("photos", photo));
+    setIsSubmitting(true);
     try {
-      onDecisionChange(await submitClarification(claimId, formData));
+      const nextDecision = await submitClarification(claimId, formData);
+      onDecisionChange(nextDecision);
+      if (nextDecision.assessment.decision === "needs_clarification") {
+        setFeedback("Doprecyzowanie zostało zapisane. Nadal potrzebujemy dodatkowych informacji.");
+      }
       setError("");
     } catch (apiError) {
       setError(apiError instanceof Error ? apiError.message : "Nie udało się wysłać doprecyzowania.");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -352,7 +362,10 @@ function ClarificationForm({
         <span className="text-sm text-text-muted">Możesz dodać jeszcze {Math.max(remainingPhotos, 0)} zdjęć.</span>
       </label>
       {error ? <p className="mt-4 text-sm font-bold text-brand-error">{error}</p> : null}
-      <button className="primary-button mt-6 w-full" type="submit">Wyślij doprecyzowanie</button>
+      {feedback ? <p className="mt-4 text-sm font-bold text-brand-primary">{feedback}</p> : null}
+      <button className="primary-button mt-6 w-full" disabled={isSubmitting} type="submit">
+        {isSubmitting ? "Wysyłamy doprecyzowanie" : "Wyślij doprecyzowanie"}
+      </button>
     </form>
   );
 }

@@ -153,6 +153,10 @@ describe("przepływ decyzji reklamacyjnej", () => {
     });
     fireEvent.click(screen.getByRole("button", { name: /wyślij doprecyzowanie/i }));
 
+    expect(
+      await screen.findByRole("button", { name: /wysyłamy doprecyzowanie/i }),
+    ).toBeDisabled();
+
     await waitFor(() =>
       expect(fetchMock).toHaveBeenLastCalledWith(
         "/api/claims/claim-clarification/clarifications",

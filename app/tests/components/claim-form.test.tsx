@@ -12,6 +12,13 @@ describe("formularz reklamacji", () => {
     vi.restoreAllMocks();
   });
 
+  it("nie pokazuje linku Decyzja przed otrzymaniem decyzji", () => {
+    render(<ClaimSubmissionApp />);
+
+    expect(screen.getByRole("link", { name: /zgłoszenie/i })).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /decyzja/i })).not.toBeInTheDocument();
+  });
+
   it("pokazuje polskie walidacje i blokuje wysyłkę pustego formularza", async () => {
     const fetchMock = vi.spyOn(globalThis, "fetch");
     render(<ClaimSubmissionApp />);
