@@ -1,3 +1,5 @@
+import { AssessmentFlow } from "@/features/assessment/AssessmentFlow";
+
 const steps = ["Zgłoszenie", "Decyzja", "Rozmowa"] as const;
 
 function BrandMark() {
@@ -41,26 +43,14 @@ export function AppShell() {
           <p className="shell-lead">
             Jedna ścieżka do zebrania danych, oceny zdjęcia i rozmowy z asystentem.
           </p>
-          <button className="shell-primary-action" type="button">
-            Rozpocznij zgłoszenie
-          </button>
         </section>
 
         <section className="shell-workspace" aria-label="Proces zgłoszenia">
-          <div className="shell-panel">
-            <div className="shell-panel-header">
-              <span className="shell-step-badge">Etap 1</span>
-              <h2>Przygotuj zgłoszenie</h2>
-            </div>
-            <p>
-              Formularz zgłoszenia, decyzja wstępna i rozmowa pojawią się w tym obszarze w kolejnych
-              krokach implementacji.
-            </p>
-          </div>
+          <AssessmentFlow />
 
           <aside className="shell-status" aria-label="Status sesji">
             <h2>Aktywna sesja</h2>
-            <p>Brak rozpoczętego zgłoszenia.</p>
+            <p>Dane są przechowywane tylko w bieżącej sesji przeglądarki.</p>
           </aside>
         </section>
       </main>
