@@ -1,0 +1,288 @@
+2026-06-19 08:09:40 From JSystems Szkolenia To Everyone:
+	https://devpowers.com/szkolenia/generative-ai-08-12-2025/#slide-8
+
+	Promptowanie - techniki
+
+2026-06-19 08:10:36 From JSystems Szkolenia To Everyone:
+	https://www.promptingguide.ai/
+
+	Więcej o promotowaniu
+
+2026-06-19 08:11:56 From JSystems Szkolenia To Everyone:
+	Thinking...
+
+2026-06-19 08:51:58 From JSystems Szkolenia To Everyone:
+	My plans - Codex vs Claude:
+	https://github.com/LucasMatuszewski/AI-Programming-Course-JSystem-15-06-2026/tree/feature/hardware-service-decision-copilot-prd/docs/plans
+
+2026-06-19 08:56:44 From JSystems Szkolenia To Everyone:
+	Rewrite this plan to create a workflow for multiple agents to work in parallel with task dependency matrix. Analyse which tasks are blocking which can be done in the same time by multiple subagents.
+
+2026-06-19 08:58:24 From JSystems Szkolenia To Everyone:
+	T3 Theo - kanał polecany:
+	https://www.youtube.com/@t3dotgg
+
+2026-06-19 09:10:05 From JSystems Szkolenia To Everyone:
+	https://www.convex.dev/
+	https://supabase.com/
+
+	Backend as a Service
+
+2026-06-19 09:10:38 From JSystems Szkolenia To Everyone:
+	https://db-skills.com/
+
+	Data Base Skill
+
+2026-06-19 09:19:17 From JSystems Szkolenia To Everyone:
+	Loop - pętla, praca na wielu elementach, odpalanie wielu agentów:
+	https://developers.openai.com/codex/use-cases/iterate-on-difficult-problems
+
+	https://openai.com/pl-PL/index/unrolling-the-codex-agent-loop/
+
+	---
+
+	Autonomiczna praca - goal - cel:
+	https://developers.openai.com/codex/use-cases/follow-goals
+
+2026-06-19 10:09:40 From JSystems Szkolenia To Everyone:
+	/side oraz /btw - fork sesji tymczasowy z historią sesji ale bez przerywania i bez wpływu na to co agent robi - pytanie poboczne
+
+2026-06-19 10:17:59 From Wojciech To Everyone:
+	{61795427-FFFC-430F-A5B0-9B20C1039292}.png
+
+2026-06-19 10:26:56 From Kamil To Everyone:
+	ja musze konczyc, przerwy powinne być planowane, ponieważ w pracy musze planować spotkania
+
+2026-06-19 10:27:12 From Kamil To Everyone:
+	będę za 20 minut
+
+2026-06-19 10:27:41 From JSystems Szkolenia To Everyone:
+	11:40 koniec przerwy
+
+2026-06-19 10:44:34 From JSystems Szkolenia To Piotr K. (direct message):
+	dziękuję za informację, wszystko będzie w repo :)
+
+2026-06-19 10:45:11 From Kamil To Everyone:
+	jj
+
+2026-06-19 10:58:36 From JSystems Szkolenia To Everyone:
+	Codex Web - agenci w chmurze:
+	https://chatgpt.com/codex/cloud
+
+2026-06-19 11:05:43 From JSystems Szkolenia To Everyone:
+	ChatGPT Security - włączenie autoryzacji przez kod w Codex CLI (na dole):
+
+	https://chatgpt.com/#settings/Security
+
+2026-06-19 11:07:29 From JSystems Szkolenia To Everyone:
+	https://chatgpt.com/codex/cloud
+
+2026-06-19 11:24:02 From JSystems Szkolenia To Everyone:
+	Narzędzia bezpieczeństwa / dependencji:
+	https://snyk.io/
+	https://github.com/dependabot
+
+2026-06-19 11:29:17 From JSystems Szkolenia To Everyone:
+	Komentarz - wywołanie Codexa w GitHub:
+	Mention @codex in your pull request to start a task or manually request a review.
+
+2026-06-19 11:46:32 From JSystems Szkolenia To Everyone:
+	Prepare a script that I would use in this codebase, in the cloud, the Codex Cloud, for this so that I can run this environment locally. So here first this script should contain a link that it is bash command, then it should go into the /app folder and do the installation. See there something else, we should do something else in such a script that I should be able to add to the Codex Cloud so that to run this cloud environment.
+
+2026-06-19 11:53:33 From JSystems Szkolenia To Everyone:
+	#!/usr/bin/env bash
+	set -euo pipefail
+
+	echo "Node: $(node --version)"
+	echo "npm: $(npm --version)"
+
+	cd app
+
+	npm ci --no-audit --no-fund
+
+2026-06-19 11:55:54 From JSystems Szkolenia To Everyone:
+	Domyślne strony do których Codex Web ma dostęp:
+	https://developers.openai.com/codex/cloud/internet-access#preset-domain-lists
+
+2026-06-19 11:57:01 From JSystems Szkolenia To Everyone:
+	jsystems.pl, payloadcms.com
+
+2026-06-19 12:06:48 From JSystems Szkolenia To Everyone:
+	#!/usr/bin/env bash
+	set -euo pipefail
+
+	echo "Node: $(node --version)"
+	echo "npm: $(npm --version)"
+
+	# cd app
+	# npm ci --no-audit --no-fund
+
+	cd app && npm install
+
+2026-06-19 12:20:02 From JSystems Szkolenia To Everyone:
+	Claude Code Web - environments
+	https://code.claude.com/docs/en/claude-code-on-the-web#the-cloud-environment
+
+2026-06-19 12:20:43 From JSystems Szkolenia To Everyone:
+	https://claude.ai/code/onboarding
+
+2026-06-19 12:21:31 From JSystems Szkolenia To Everyone:
+	KONTA CLAUDE FIRMOWE:
+
+	https://claude.ai/admin-settings/connectors
+
+	Connectors - podpięcie do GitHub
+
+2026-06-19 12:27:06 From JSystems Szkolenia To Everyone:
+	Claude Code Web:
+	https://claude.ai/code
+
+2026-06-19 12:30:16 From Wojciech To Everyone:
+	-
+	{99B7FE5A-44FE-49C3-8FA0-93D360FE7E13}.png
+
+2026-06-19 12:37:09 From JSystems Szkolenia To Everyone:
+	14:20 Koniec przerwy
+
+2026-06-19 12:45:18 From JSystems Szkolenia To Everyone:
+	W wolnej chwili prośba o wypełnienie ankiet:
+
+	https://ankiety.jsystems.pl/
+
+2026-06-19 12:45:47 From JSystems Szkolenia To Everyone:
+	Należy w formularzu podać identyfikator po lewej od Waszego imienia.
+
+	Z góry dziękuję za wypełnienie :)
+
+2026-06-19 12:46:13 From JSystems Szkolenia To Everyone:
+	14:20 Koniec przerwy
+
+2026-06-19 13:18:26 From JSystems Szkolenia To Everyone:
+	https://github.com/jesseduffield/lazygit
+
+	Lazy Git do Git w Terminalu TUI
+
+2026-06-19 13:20:53 From JSystems Szkolenia To Everyone:
+	https://github.com/jesseduffield/lazydocker
+
+	TUI do Dockera w Terminalu
+
+2026-06-19 13:26:48 From Andrzej To Everyone:
+	do łopaty XD
+
+2026-06-19 13:33:06 From JSystems Szkolenia To Everyone:
+	Code Review GitHub:
+	https://docs.github.com/en/copilot/how-tos/use-copilot-agents/request-a-code-review/use-code-review
+
+2026-06-19 13:37:09 From JSystems Szkolenia To Everyone:
+	Włączenie innych agentów w GitHub:
+	https://github.com/settings/copilot/coding_agent
+
+2026-06-19 13:38:53 From JSystems Szkolenia To Everyone:
+	Cloud Agents jako aplikacje w GitHub:
+	https://github.com/settings/installations
+
+2026-06-19 14:13:52 From JSystems Szkolenia To Everyone:
+	Code Review open source agent:
+	https://www.qodo.ai/
+
+2026-06-19 14:15:10 From JSystems Szkolenia To Everyone:
+    Code Review SaaS najbardziej popularny:
+	https://www.coderabbit.ai/
+
+2026-06-19 14:16:31 From JSystems Szkolenia To Everyone:
+	Supported git platforms: https://docs.coderabbit.ai/platforms/overview#supported-git-platforms
+
+2026-06-19 14:21:03 From JSystems Szkolenia To Everyone:
+	Claude - zmiana providera - zmienne env np. do OpenRouter i Z.ai
+	https://github.com/LucasMatuszewski/AI-Programming-Course-JSystem-15-06-2026/blob/main/course-materials/.bashrc
+
+2026-06-19 14:35:15 From JSystems Szkolenia To Everyone:
+	Codex - praca z innymi modelami (OpenRouter, ollama):
+	https://github.com/LucasMatuszewski/AI-Programming-Course-JSystem-15-06-2026/blob/main/.codex/config.toml
+
+2026-06-19 14:37:54 From JSystems Szkolenia To Everyone:
+	Praca domowa - praca z legacy code:
+
+	https://github.com/sai-pullabhotla/jftp/tree/master
+
+2026-06-19 14:55:09 From JSystems Szkolenia To Everyone:
+	Prompt do analizy legacy (poprawię go jeszcze):
+
+	https://github.com/LucasMatuszewski/AI-Programming-Course-JSystem-15-06-2026/blob/main/course-materials/Prompt%20examples/Legacy-Code-JFTP-modernization.md
+
+2026-06-19 15:00:23 From JSystems Szkolenia To Everyone:
+	W wolnej chwili prośba o wypełnienie ankiet:
+
+	https://ankiety.jsystems.pl/
+
+2026-06-19 15:00:38 From JSystems Szkolenia To Everyone:
+	Należy w formularzu podać identyfikator po lewej od Waszego imienia.
+
+	Z góry dziękuję za wypełnienie :)
+
+2026-06-19 15:01:48 From JSystems Szkolenia To Everyone:
+	Podsumowania oraz historia linków z chata:
+	https://github.com/LucasMatuszewski/AI-Programming-Course-JSystem-15-06-2026/tree/main/course-materials/summary%2Bchat-history
+
+2026-06-19 15:04:18 From JSystems Szkolenia To Everyone:
+	Platformy w chmurze do Vibe Codingu:
+	https://v0.app/
+	Templates, Dashboards: https://v0.app/templates/dashboards
+
+	https://lovable.dev/
+
+2026-06-19 15:05:02 From JSystems Szkolenia To Everyone:
+	https://bolt.new/
+
+2026-06-19 15:05:19 From JSystems Szkolenia To Everyone:
+	https://replit.com/
+
+2026-06-19 15:08:24 From JSystems Szkolenia To Everyone:
+	Przykład - Allegro clone z Replit zaproszenie
+	https://replit.com/join/goqnjepcobpfsft-lucasmat
+
+2026-06-19 15:11:05 From JSystems Szkolenia To Everyone:
+	V0 z $5 kredytów https://v0.app/ref/HDACI3
+
+2026-06-19 15:12:13 From JSystems Szkolenia To Everyone:
+	https://v0.app/templates
+
+2026-06-19 15:16:17 From JSystems Szkolenia To Everyone:
+	https://allegro-clone--lucasmat.replit.app/
+
+2026-06-19 15:24:13 From JSystems Szkolenia To Everyone:
+	Refactor this application to use Coca-Cola brand colors and more lifestyle vibe, not so formal, more lifestyle and with red colors of Coca-Cola.
+
+2026-06-19 15:31:43 From JSystems Szkolenia To Everyone:
+	https://v0-cocacola-dashboard.vercel.app/
+
+	V0 CocCola dashboard
+
+2026-06-19 15:33:27 From Oliwia To Everyone:
+	Dziękuję za szkolenie!
+
+2026-06-19 15:36:31 From Maciej To Everyone:
+	dzięki za szkolenie, miłego weekendu :)
+
+2026-06-19 15:42:14 From JSystems Szkolenia To Everyone:
+	Przykłady promptów do testowania E2E z agentami:
+
+	1. Wczuj się w użytkownika który próbuje zepsuć aplikacje i testuje edge cases, w celu wykrycia błędów
+
+	2. (Jak jest błąd FE): użyj Chrome DevTools MCP i przeanalizuj błąd w consoli i go napraw
+
+	3. Napisz testy E2E w Playright dla happy path oraz edge cases
+
+	4. Użyj Chrome DevTools MCP zrób audyt performance aplikacji, przeanalizuj zarówno Lighthouse, Network, latency, lifecycle, renderowanie, wielkość przesyłanych plików, headers i cache, itd.
+
+2026-06-19 15:54:49 From JSystems Szkolenia To Everyone:
+	Dostaję taki blad - popraw go prosze - sprawdź logi jakie obiekty są przesyłane:
+
+	```
+	Błąd oceny
+	Nie możemy teraz dokończyć oceny.
+	Model zwrócił niepoprawną strukturę odpowiedzi. Spróbuj ponownie.
+	```
+
+	dodaj test który będzie weryfikował zgodność obiektów i struktury danych aby uniknąć tego błędu w przyszłości
