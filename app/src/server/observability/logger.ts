@@ -31,7 +31,13 @@ export type Logger = {
 export type CreateLoggerOptions = {
   level?: LogLevel;
   sinks?: LogSink[];
+  // Minimum contiguous base64 run length to redact. Set to 0 to disable.
+  redactBase64MinLength?: number;
 };
+
+// Default threshold: long enough that stack traces / paths / prose never trip
+// it, short enough that any real image/file payload is caught.
+export const DEFAULT_BASE64_MIN_LENGTH = 256;
 
 const LEVEL_WEIGHT: Record<LogLevel, number> = {
   error: 0,
@@ -70,7 +76,61 @@ export const serializeError = (input: unknown): SerializedError | undefined => {
   };
 };
 
-export const createLogger = ({ level = "info", sinks = [] }: CreateLoggerOptions = {}): Logger => {
+/**
+ * Recursively replace long base64 runs (image/file payloads) inside any
+ * string, array or object with a compact placeholder that keeps the length
+ * plus head/tail so you can still confirm it was real base64 data.
+ */
+export const redactBase64 = (
+  value: unknown,
+  minLength: number = DEFAULT_BASE64_MIN_LENGTH
+): unknown => {
+  if (minLength <= 0) {
+    return value;
+  }
+  return redactValue(value, minLength, new WeakSet());
+};
+
+const redactValue = (value: unknown, minLength: number, seen: WeakSet<object>): unknown => {
+  if (typeof value === "string") {
+    return redactBase64InString(value, minLength);
+  }
+
+  if (Array.isArray(value)) {
+    return value.map((item) => redactValue(item, minLength, seen));
+  }
+
+  if (value !== null && typeof value === "object") {
+    if (seen.has(value)) {
+      return "[circular]";
+    }
+    seen.add(value);
+
+    const result: Record<string, unknown> = {};
+    for (const [key, item] of Object.entries(value)) {
+      result[key] = redactValue(item, minLength, seen);
+    }
+    return result;
+  }
+
+  return value;
+};
+
+const redactBase64InString = (input: string, minLength: number): string => {
+  const pattern = new RegExp(`[A-Za-z0-9+/]{${minLength},}={0,2}`, "g");
+
+  return input.replace(pattern, (match) => {
+    const head = match.slice(0, 8);
+    const tail = match.slice(-8);
+    return `[base64 omitted len=${match.length} ${head}…${tail}]`;
+  });
+};
+
+export const createLogger = ({
+  level = "info",
+  sinks = [],
+  redactBase64MinLength = DEFAULT_BASE64_MIN_LENGTH
+}: CreateLoggerOptions = {}): Logger => {
   const threshold = LEVEL_WEIGHT[level];
 
   const emit = (recordLevel: LogLevel, msg: string, fields: LogFields = {}) => {
@@ -95,8 +155,12 @@ export const createLogger = ({ level = "info", sinks = [] }: CreateLoggerOptions
       record.error = serializeError(error);
     }
 
+    // Strip bulky base64 payloads (images, files) before anything is written,
+    // so every sink benefits and logs stay readable.
+    const safeRecord = redactBase64(record, redactBase64MinLength) as LogRecord;
+
     for (const sink of sinks) {
-      sink(record);
+      sink(safeRecord);
     }
   };
 

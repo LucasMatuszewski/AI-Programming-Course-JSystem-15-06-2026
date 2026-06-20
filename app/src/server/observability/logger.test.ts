@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 
-import { createLogger, serializeError, type LogRecord } from "./logger";
+import { createLogger, redactBase64, serializeError, type LogRecord } from "./logger";
+
+const base64Of = (length: number) => "A".repeat(length - 4) + "b/9=";
 
 const memorySink = () => {
   const records: LogRecord[] = [];
@@ -83,5 +85,61 @@ describe("serializeError", () => {
   it("returns undefined for nullish input", () => {
     expect(serializeError(undefined)).toBeUndefined();
     expect(serializeError(null)).toBeUndefined();
+  });
+});
+
+describe("redactBase64", () => {
+  it("replaces a long base64 run with a placeholder that keeps head, tail and length", () => {
+    const payload = base64Of(2000);
+
+    const result = redactBase64(payload, 256) as string;
+
+    expect(result).not.toContain(payload);
+    expect(result.length).toBeLessThan(120);
+    expect(result).toContain("base64");
+    expect(result).toContain("len=2000");
+    expect(result).toContain(payload.slice(0, 8)); // head preserved
+    expect(result).toContain(payload.slice(-8)); // tail preserved
+  });
+
+  it("preserves the data URI mime prefix and only redacts the payload", () => {
+    const input = `data:image/png;base64,${base64Of(1500)}`;
+
+    const result = redactBase64(input, 256) as string;
+
+    expect(result).toContain("data:image/png;base64,");
+    expect(result).not.toContain(base64Of(1500));
+    expect(result).toContain("len=1500");
+  });
+
+  it("leaves short strings and ordinary prose untouched", () => {
+    expect(redactBase64("HTTP 401 Unauthorized", 256)).toBe("HTTP 401 Unauthorized");
+    expect(redactBase64("imageAnalysis", 256)).toBe("imageAnalysis");
+  });
+
+  it("redacts base64 nested inside objects, arrays and error causes", () => {
+    const input = {
+      messages: [{ image: base64Of(1000) }],
+      error: serializeError(new Error(`body ${base64Of(900)}`))
+    };
+
+    const result = redactBase64(input, 256) as typeof input;
+
+    expect(result.messages[0].image).not.toContain(base64Of(1000));
+    expect(result.messages[0].image).toContain("len=1000");
+    expect((result.error?.message as string)).toContain("len=900");
+  });
+});
+
+describe("createLogger base64 redaction", () => {
+  it("redacts base64 in emitted records by default", () => {
+    const { records, sink } = memorySink();
+    const logger = createLogger({ level: "debug", sinks: [sink] });
+
+    logger.error("ai.failed", { error: new Error(`request ${base64Of(3000)}`) });
+
+    const serialized = records[0].error as ReturnType<typeof serializeError>;
+    expect(serialized?.message).not.toContain(base64Of(3000));
+    expect(serialized?.message).toContain("len=3000");
   });
 });
