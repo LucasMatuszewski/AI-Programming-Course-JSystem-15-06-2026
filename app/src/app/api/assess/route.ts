@@ -18,6 +18,7 @@ import {
 } from "../../../server/image/image-processor";
 import { loadPolicyForRequestType, PolicyLoadError } from "../../../server/policies/policy-loader";
 import { generateInitialDecision } from "../../../server/ai/decision-generation";
+import { logger } from "../../../server/observability/logger";
 
 type AssessmentSuccessResponse = {
   caseId: string;
@@ -230,6 +231,14 @@ const validationError = (fieldErrors: ValidationError[]): AssessmentError => ({
 
 const handleAssessmentError = (error: unknown) => {
   if (error instanceof AIOrchestrationError) {
+    // Expected, classified failures: warn level keeps them visible without noise.
+    logger.warn("assess.orchestration_error", {
+      code: error.code,
+      kind: error.kind,
+      retryable: error.retryable,
+      error
+    });
+
     return errorResponse(
       {
         kind: error.kind,
@@ -250,6 +259,9 @@ const handleAssessmentError = (error: unknown) => {
       500
     );
   }
+
+  // Anything reaching here is unexpected and uncategorised — log full detail.
+  logger.error("assess.unexpected_error", { error });
 
   return errorResponse(
     {

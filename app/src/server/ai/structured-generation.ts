@@ -1,6 +1,7 @@
 import { generateText, NoObjectGeneratedError, Output, type LanguageModel, type ModelMessage } from "ai";
 import type { z } from "zod";
 
+import { logger } from "../observability/logger";
 import { AIOrchestrationError, invalidStructuredOutputError } from "./errors";
 
 export type StructuredOutputOperation = "imageAnalysis" | "decision";
@@ -19,6 +20,7 @@ export type StructuredOutputGenerator = <TOutput>(
 ) => Promise<unknown>;
 
 export const generateStructuredObject: StructuredOutputGenerator = async <TOutput>({
+  operation,
   model,
   schema,
   system,
@@ -49,6 +51,10 @@ export const generateStructuredObject: StructuredOutputGenerator = async <TOutpu
 
     return result.output;
   } catch (error) {
+    // The provider error is the actual reason a generation fails. Log it here,
+    // at the boundary, before it gets wrapped into a generic user-facing error.
+    logger.error("ai.structured_generation_failed", { operation, error });
+
     if (NoObjectGeneratedError.isInstance(error)) {
       throw invalidStructuredOutputError(error);
     }
