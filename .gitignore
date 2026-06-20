@@ -31,6 +31,9 @@ playwright-report/
 logs/
 *.log
 
+# TypeScript build cache
+*.tsbuildinfo
+
 # Secrets / credentials
 .env
 .env.local
