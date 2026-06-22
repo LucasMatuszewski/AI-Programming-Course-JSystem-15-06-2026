@@ -45,7 +45,11 @@ Główne notatki i zasoby znajdziesz w folderze `/course-materials`:
 ## Branche - Przykładowa aplikacja
 
 - Główny branch `main` zawiera materiały szkoleniowe i bazowe pliki z pustymi katalogami `app/` do budowania aplikacji oraz `docs/` do zapisywania PRD, ADR i planów.
-- Branch `feature/hardware-service-decision-copilot-prd` zawiera zaimplementowany przez agentów AI kod aplikacji szkoleniowej oraz gotowe pliki PRD, Design Guidelines, ADR i plany.
+- Branch `feature/hardware-service-decision-copilot-prd` zawiera zaimplementowany przez agentów AI kod aplikacji szkoleniowej oraz gotowe pliki PRD, Design Guidelines, ADR i plany. Aplikacja w pełni działa i jest gotowa do uruchomienia z `cd app && npm run dev`. Należy jednak dodać najpierw `.env` file z odpowiednimi zmiennymi środowiskowymi wewnątrz katalogu `app/`.
+- Przykładowy Pull Request z automatycznymi [Code Reviews od Copilot i Codex](https://github.com/LucasMatuszewski/AI-Programming-Course-JSystem-15-06-2026/pull/3)
+- [PR stworzony przez Codex](https://github.com/LucasMatuszewski/AI-Programming-Course-JSystem-15-06-2026/pull/5) Web używając środowiska w chmurze (instalacja dependencies działa już poprawnie dla Codex)
+  - użyłem prostego prompta: `Pick a part of the codebase that seems important and find and fix a bug.`
+  - [link do sesji Codex Web](https://chatgpt.com/s/cd_6a35bac6272c819196b325f297288b3e) 
 
 ---
 
