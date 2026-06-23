@@ -21,9 +21,15 @@ Notes from course for JSystem — AI dla programistów: od pomysłu do MVP
   - Vibe Coding definition: [X.com](https://x.com/karpathy/status/1886192184808149383?lang=en)
 - **Context rot & Context engineering**
 - **Async Codding Agents in Cloud & on Mobile**
-- CLI tools, Automation, YOLO in container/cloud
+- CLI tools, Automation (Auto Review, Auto Mode), YOLO in container/cloud or local device (e.g. mac mini, Nvidia DGX Spark, AMD Strix Halo)
 - Huge jump in quality of **Opus 4.5+**, GPT 5.4 and Gemini 3
-- **Open Source LLMs** so close to top models (GLM-5 and Minimax M2.7)
+- **Open Source LLMs** are very close to top models:
+  - GLM-5.2, Minimax M3, Kimi K2.6, DeepSeek v4 Pro - best OSS models are all from China
+  - Best OSS for consumer hardware: Google [Gemma 4](https://ollama.com/library/gemma4), [Qwen 3.6](https://ollama.com/library/qwen3.6)
+  - could be used also with Claude Code: [Ollama](https://docs.ollama.com/integrations/claude-code), [vLLM](https://docs.vllm.ai/en/latest/serving/integrations/claude_code/) (good concurrency for scaling), [LocalAI](https://localai.io/integrations/index.html#claude-code)
+- **Screenshots** as a better way to provide context for vision models (less tokens thanks to compression, more information thanks to formatting, colors, images, etc.)
+  - [DeepSeek OCR research paper on context compression](https://arxiv.org/abs/2510.18234)
+  - [Andrej Karpathy on X.com](https://x.com/karpathy/status/1980397031542989305?lang=en) "whether pixels are better inputs to LLMs than text. Maybe it makes more sense that all inputs to LLMs should only ever be images"
 - **AI disappointment**, broken promises, productivity drop, less fun and joy, frustration:
   - [AI Coding Sucks - YouTube](https://www.youtube.com/watch?v=0ZUkQF6boNg)
   - undeterministic nature of LLMs,
@@ -232,10 +238,12 @@ Notes from course for JSystem — AI dla programistów: od pomysłu do MVP
 - **IDE & plugins:**
   - Zed [Zed — Love your editor again](https://zed.dev/) (Open Source)
     - [Should You Use Zed In 2026? - YouTube](https://www.youtube.com/watch?v=lRrElGM23h4)
+    - Windows users: [Zed in WSL](https://zed.dev/docs/remote-development#wsl-support)
+    - Offline / air-gapped env: [Agents/LLMs](https://zed.dev/docs/ai/use-a-local-model), [Zeta](https://zed.dev/docs/ai/edit-prediction#local-and-self-hosted-models) (edit prediction), [LSP](https://zed.dev/docs/configuring-languages#possible-configuration-options) (language servers from PATH)
   - Cursor [Cursor](https://cursor.com/)
   - GitHub Copilot: [GitHub Copilot · Plans & pricing · GitHub](https://github.com/features/copilot/plans)
     - Not only GPT, Claude Opus in all plans: [Claude Opus 4.5 is now generally available in GitHub Copilot - GitHub Changelog](https://github.blog/changelog/2025-12-18-claude-opus-4-5-is-now-generally-available-in-github-copilot/)
-  - [Google Antigravity CLI](https://antigravity.google/product/antigravity-ide)
+  - [Google Antigravity IDE](https://antigravity.google/product/antigravity-ide)
   - [Junie | IntelliJ IDEA Documentation](https://www.jetbrains.com/help/idea/junie.html)
   - [Cline - AI Coding, Open Source and Uncompromised](https://cline.bot/)
   - [Augment Code - The Software Agent Company](https://www.augmentcode.com/)
@@ -248,8 +256,10 @@ Notes from course for JSystem — AI dla programistów: od pomysłu do MVP
   - [Claude Desktop](https://code.claude.com/docs/en/desktop-quickstart)
     - [Linux - Claude Desktop Debian](https://github.com/aaddrick/claude-desktop-debian) (unofficial re-packaged Electron app - works well)
   - [Codex App](https://developers.openai.com/codex/app)
+    - Linux [Codex Desktop Linux](https://github.com/ilysenko/codex-desktop-linux), [Codex App Linux](https://github.com/better-slop/codex-app-linux) (both unofficial, re-packaged from source = build is required)
   - [Google Antigravity 2.0](https://antigravity.google/product/antigravity-2)
   - [OpenCode](https://opencode.ai/download) (Open Source)
+    - WebUI mode in the browser - [supports Offline / air-gapped env](https://github.com/anomalyco/opencode/issues/18492#issuecomment-4135581838) 
   - [Goose](https://block.github.io/goose/) (Open Source)
 - **CLI tools:**
   - Knowledge Base with comparisons: [NotebookLM](https://notebooklm.google.com/notebook/44128edb-6841-4315-909c-4402b2d13bd1)
@@ -316,6 +326,10 @@ Notes from course for JSystem — AI dla programistów: od pomysłu do MVP
   - architecture details (Tauri): [Code Wiki](https://codewiki.google/github.com/cjpais/handy)
 - Claude Code - for multi-step tasks, leading in innovation, and access to best models on discounted prices (especially on Max plan)
   - Desktop & Mobile apps with Code Agent in the cloud! [Claude Desktop App](https://code.claude.com/docs/en/desktop)
+  - ⚠️ **Anthropic API / Claude Code availability** — in the last months, uptime has sometimes dropped below 99% for 90 day window. When you see below API errors, check [status.claude.com](https://status.claude.com/):
+    - `● API Error: 529 Overloaded` — server-side overload, usually temporary — try again in a moment
+    - `● API Error: 500 Internal server error` — server-side issue, usually temporary — try again in a moment
+    - If either persists, check https://status.claude.com
 - Codex - for very high limits, best models for hard work (not as good as Opus in architecture, but great for development and more focused), good cloud agents with GitHub integration.
 - Zed.ai - to use any AI tool/Provider you wont, Open Source, Rust (fast)
 - Cursor - for best autocomplete and cloud agents, RAG on any docs
@@ -516,6 +530,7 @@ Main agent can delegate tasks to sub-agents (often specialized), to focus on orc
 ## Security
 
 - Validate skills, MCPs and any scripts before installing and using them.
+- Check the license for skills, hooks and agents you copy from internet (e.g. Anthropic skills are not permissive) - license can be found on GitHub repo or inside skill folder.
 - YOLO MODE requires good sandboxing or phisical 2nd device without sensitive credentials.
 - https://code.claude.com/docs/en/best-practices#safe-autonomous-mode
 - https://code.claude.com/docs/en/sandboxing
