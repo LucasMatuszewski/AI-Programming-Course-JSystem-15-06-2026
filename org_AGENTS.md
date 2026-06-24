@@ -5,6 +5,7 @@
 This is a **course project** for the "AI dla programistów — od pomysłu do MVP" training by JSystems. The app is a multimodal AI assistant built live during the course. The domain, tech stack, and architecture are decided by the group through a structured process: research → PRD → ADR → implementation with agents.
 
 **Primary demo stack:** TypeScript/Node.js (Next.js, Vercel AI SDK).
+Participants may work in any language (Java, Python, C#, Go, Rust, etc.).
 
 All user-facing text in **Polish**.
 
@@ -64,7 +65,7 @@ Verify only the scope relevant to your change. If the change affects runtime beh
 
 **Verification:** Always start the app before committing. Tests passing ≠ app working.
 
-**Env Vars:** See `.env` (OPENROUTER_API_KEY or OPENAI_API_KEY required)
+**Env Vars:** See `.env.example` (OPENROUTER_API_KEY or OPENAI_API_KEY required)
 
 ### Commit Rules
 - Commit only after verification passes and the changed scope is in a working state.
