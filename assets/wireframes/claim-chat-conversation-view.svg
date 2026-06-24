@@ -1,0 +1,50 @@
+<svg width="640" height="920" viewBox="0 0 640 920" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>Wireframe - claim chat conversation view</title>
+  <desc>Hand-drawn low fidelity wireframe for active customer chat with conversation history.</desc>
+  <style>
+    .bg { fill: #fbfaf4; }
+    .ink { stroke: #1f211a; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .thin { stroke: #1f211a; stroke-width: 2.1; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+    .soft { fill: #f1efe3; stroke: #1f211a; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+    .note { fill: #e8ff66; stroke: #1f211a; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+    .button { fill: #d2ff00; stroke: #1f211a; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+    .muted { fill: #e4e0d3; stroke: #1f211a; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+    .title { font: 700 30px "Comic Sans MS", "Segoe Print", Arial, sans-serif; fill: #1f211a; }
+    .label { font: 600 21px "Comic Sans MS", "Segoe Print", Arial, sans-serif; fill: #1f211a; }
+    .small { font: 500 17px "Comic Sans MS", "Segoe Print", Arial, sans-serif; fill: #1f211a; }
+    .tiny { font: 500 14px "Comic Sans MS", "Segoe Print", Arial, sans-serif; fill: #1f211a; }
+  </style>
+
+  <rect class="bg" width="640" height="920"/>
+  <path class="ink" d="M45 38 C185 27, 438 29, 592 39"/>
+  <text x="50" y="78" class="title">Aktywny chat</text>
+  <text x="50" y="110" class="small">Kilka dymków w historii rozmowy</text>
+
+  <path class="ink" d="M44 145 C202 132, 431 137, 596 146 C607 310, 604 651, 594 872 C433 885, 205 883, 43 871 C32 635, 35 395, 44 145Z"/>
+
+  <path class="soft" d="M74 178 C232 168, 429 173, 572 180 C580 234, 578 282, 570 322 C418 331, 239 330, 75 322 C67 272, 67 224, 74 178Z"/>
+  <text x="98" y="216" class="label">Podsumowanie reklamacji</text>
+  <text x="98" y="249" class="small">Rower: marka + model</text>
+  <text x="98" y="278" class="small">Status: odmowa wstępna</text>
+  <text x="394" y="278" class="tiny">[Weryfikacja serwisu]</text>
+
+  <path class="ink" d="M74 354 C240 344, 419 346, 574 355 C584 530, 580 693, 570 787 C418 799, 237 796, 75 786 C66 643, 66 490, 74 354Z"/>
+  <text x="98" y="392" class="label">Chat z AI</text>
+
+  <path class="muted" d="M98 420 C183 413, 315 417, 394 423 C401 469, 397 504, 390 530 C290 538, 181 536, 101 529 C93 492, 93 453, 98 420Z"/>
+  <text x="120" y="458" class="small">Klient: Dlaczego odmowa?</text>
+  <text x="120" y="488" class="tiny">Rama pękła, ale chcę zrozumieć decyzję.</text>
+
+  <path class="note" d="M190 554 C298 545, 505 549, 586 557 C593 616, 589 662, 581 696 C459 706, 299 703, 192 695 C184 648, 184 599, 190 554Z"/>
+  <text x="212" y="592" class="small">AI: Według opisu uszkodzenie</text>
+  <text x="212" y="622" class="small">powstało po przewróceniu roweru.</text>
+  <text x="212" y="652" class="tiny">Mogę wyjaśnić szczegóły albo przekazać sprawę do serwisu.</text>
+
+  <path class="muted" d="M98 718 C190 711, 310 714, 396 720 C403 753, 400 773, 392 787 C287 794, 183 792, 100 786 C94 765, 93 739, 98 718Z"/>
+  <text x="120" y="757" class="small">Klient: Poproszę o weryfikację.</text>
+
+  <path class="thin" d="M88 812 C212 806, 446 808, 577 814 C582 848, 579 871, 572 887 C420 894, 244 892, 89 886 C83 862, 82 835, 88 812Z"/>
+  <text x="110" y="851" class="small">Napisz wiadomość...</text>
+  <path class="button" d="M462 822 C502 817, 539 819, 570 824 C576 846, 573 869, 566 882 C531 888, 494 887, 462 881 C456 862, 455 841, 462 822Z"/>
+  <text x="490" y="855" class="small">Wyślij</text>
+</svg>

@@ -1,0 +1,161 @@
+{
+  "source": {
+    "name": "Lando Norris",
+    "url": "https://landonorris.com/",
+    "note": "Tokens are adapted from the inspected site direction, not a 1:1 brand clone."
+  },
+  "colors": {
+    "brand": {
+      "primary": "#d2ff00",
+      "primaryMuted": "#b2c73a",
+      "accent": "#ff6b00",
+      "success": "#d2ff00",
+      "warning": "#ff6b00",
+      "error": "#ff4c24"
+    },
+    "background": {
+      "default": "#282c20",
+      "elevated": "#3b3c38",
+      "subtle": "#535450",
+      "light": "#f4f4ed",
+      "panel": "#111112",
+      "overlay": "rgba(17, 17, 18, 0.79)"
+    },
+    "text": {
+      "primary": "#f4f4ed",
+      "secondary": "#dde1d2",
+      "muted": "#b9bbad",
+      "dark": "#111112",
+      "onAccent": "#282c20",
+      "onLight": "#282c20"
+    },
+    "border": {
+      "default": "rgba(244, 244, 237, 0.16)",
+      "strong": "#d2ff00",
+      "muted": "rgba(40, 44, 32, 0.15)"
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "primary": "\"Mona Sans Variable\", Arial, sans-serif",
+      "display": "\"Brier\", \"Mona Sans Variable\", Arial, sans-serif"
+    },
+    "fontFaces": {
+      "primary": "Mona Sans Variable, font-weight 200 900, woff2 source from inspected site",
+      "display": "Brier Bold, font-weight 700, woff2 source from inspected site"
+    },
+    "fontWeights": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 660,
+      "bold": 750,
+      "black": 800
+    },
+    "fontSize": {
+      "eyebrow": "0.625rem",
+      "xs": "0.75rem",
+      "sm": "0.875rem",
+      "base": "1rem",
+      "md": "1.25rem",
+      "lg": "1.6rem",
+      "xl": "2rem",
+      "title": "4.5rem",
+      "impact": "7rem"
+    },
+    "lineHeight": {
+      "tight": "0.9",
+      "compact": "1",
+      "base": "1.25",
+      "relaxed": "1.6"
+    },
+    "letterSpacing": {
+      "none": "0",
+      "tight": "-0.0125rem",
+      "display": "-0.0625rem",
+      "impact": "-0.1875rem"
+    },
+    "textTransform": {
+      "label": "uppercase",
+      "button": "uppercase",
+      "heading": "uppercase"
+    }
+  },
+  "spacing": {
+    "1": "0.25rem",
+    "2": "0.5rem",
+    "3": "0.75rem",
+    "4": "1rem",
+    "5": "1.25rem",
+    "6": "1.5rem",
+    "8": "2rem",
+    "12": "3rem",
+    "16": "4rem",
+    "20": "5rem"
+  },
+  "borderRadius": {
+    "none": "0px",
+    "xs": "0.411875rem",
+    "sm": "0.54rem",
+    "md": "0.74rem",
+    "lg": "1rem",
+    "xl": "3rem",
+    "pill": "999px",
+    "organic": "6.25rem"
+  },
+  "motion": {
+    "durationDefault": "0.75s",
+    "easingDefault": "cubic-bezier(0.65, 0.05, 0, 1)",
+    "hoverScale": "1.03",
+    "imageReveal": "clip-path 0.75s cubic-bezier(0.65, 0.05, 0, 1)"
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "backgroundColor": "#d2ff00",
+        "color": "#282c20",
+        "border": "1px solid #d2ff00",
+        "height": "3rem",
+        "paddingInline": "1rem",
+        "borderRadius": "0.54rem",
+        "fontFamily": "\"Mona Sans Variable\", Arial, sans-serif",
+        "fontWeight": 800,
+        "textTransform": "uppercase"
+      },
+      "secondary": {
+        "backgroundColor": "transparent",
+        "color": "#f4f4ed",
+        "border": "1px solid currentColor",
+        "height": "2.5rem",
+        "paddingInline": "1rem",
+        "borderRadius": "0.411875rem"
+      }
+    },
+    "header": {
+      "position": "fixed",
+      "height": "3.75rem",
+      "padding": "1.25rem",
+      "backgroundColor": "transparent",
+      "color": "#f4f4ed"
+    },
+    "nav": {
+      "fontFamily": "\"Mona Sans Variable\", Arial, sans-serif",
+      "fontSize": "1.25rem",
+      "fontWeight": 800,
+      "textTransform": "uppercase",
+      "itemRadius": "0.74rem"
+    },
+    "card": {
+      "backgroundColor": "#111112",
+      "color": "#f4f4ed",
+      "border": "1px solid rgba(244, 244, 237, 0.16)",
+      "borderRadius": "1rem"
+    },
+    "input": {
+      "backgroundColor": "#111112",
+      "color": "#f4f4ed",
+      "border": "1px solid rgba(244, 244, 237, 0.16)",
+      "focusBorderColor": "#d2ff00",
+      "borderRadius": "0.54rem"
+    }
+  }
+}
