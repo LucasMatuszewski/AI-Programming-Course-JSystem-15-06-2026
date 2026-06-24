@@ -1,0 +1,138 @@
+.thread {
+  display: grid;
+  gap: 1rem;
+  padding-bottom: 6.5rem;
+}
+
+.messages {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.message {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 0.5rem;
+  display: grid;
+  gap: 0.45rem;
+  max-width: min(100%, 42rem);
+  padding: 0.85rem;
+}
+
+.user {
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  justify-self: end;
+}
+
+.assistant {
+  background: var(--color-background-elevated);
+  color: var(--color-text-primary);
+  justify-self: start;
+}
+
+.messageLabel {
+  font-size: 0.75rem;
+  font-weight: 800;
+  opacity: 0.78;
+}
+
+.part {
+  line-height: 1.55;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.status,
+.error {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.error {
+  color: #ffb4a8;
+}
+
+.topActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.composer {
+  background: rgba(18, 18, 18, 0.96);
+  border-top: 1px solid var(--color-border-subtle);
+  bottom: 0;
+  display: grid;
+  gap: 0.75rem;
+  left: 0;
+  padding: 1rem max(1rem, calc((100vw - 1120px) / 2));
+  position: fixed;
+  right: 0;
+  z-index: 20;
+}
+
+.composerRow {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: 1fr auto;
+}
+
+.visuallyHidden {
+  clip: rect(0 0 0 0);
+  border: 0;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.input {
+  background: var(--color-background-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 0.5rem;
+  color: var(--color-text-primary);
+  min-height: 2.75rem;
+  padding: 0.75rem;
+  resize: vertical;
+}
+
+.input:focus {
+  border-color: var(--color-brand-primary);
+  outline: 2px solid rgba(30, 215, 96, 0.22);
+}
+
+.button,
+.ghost {
+  border-radius: 9999px;
+  cursor: pointer;
+  font-weight: 700;
+  min-height: 2.75rem;
+  padding: 0.75rem 1.25rem;
+}
+
+.button {
+  background: var(--color-brand-primary);
+  border: 0;
+  color: var(--color-text-on-brand);
+}
+
+.button:disabled,
+.input:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+.ghost {
+  background: transparent;
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-primary);
+}
+
+@media (max-width: 760px) {
+  .composerRow {
+    grid-template-columns: 1fr;
+  }
+}

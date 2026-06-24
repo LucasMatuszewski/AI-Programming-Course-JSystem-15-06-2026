@@ -1,0 +1,132 @@
+.panel {
+  background: var(--color-background-tinted);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  min-height: 22rem;
+  padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+.processing,
+.error {
+  align-content: center;
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.spinner {
+  animation: spin 900ms linear infinite;
+  border: 3px solid var(--color-background-press);
+  border-top-color: var(--color-brand-primary);
+  border-radius: 9999px;
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.secondary,
+.ghost {
+  border-radius: 9999px;
+  cursor: pointer;
+  font-weight: 700;
+  min-height: 2.75rem;
+  padding: 0.75rem 1.25rem;
+}
+
+.secondary {
+  background: var(--color-brand-primary);
+  border: 0;
+  color: var(--color-text-on-brand);
+}
+
+.ghost {
+  background: transparent;
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-primary);
+}
+
+.card {
+  background: var(--color-background-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 0.5rem;
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+}
+
+.card h3,
+.card h4,
+.card p,
+.card ul {
+  margin: 0;
+}
+
+.card h3 {
+  font-size: 1.35rem;
+}
+
+.card h4 {
+  color: var(--color-text-primary);
+  font-size: 0.9rem;
+}
+
+.card p,
+.card li,
+.placeholder p {
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+}
+
+.heading {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.status {
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  justify-self: start;
+  padding: 0.45rem 0.7rem;
+}
+
+.approve {
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+}
+
+.reject {
+  background: #ff6f61;
+  color: #111111;
+}
+
+.needsMoreInfo,
+.conditional,
+.escalate {
+  background: #f5c451;
+  color: #111111;
+}
+
+.disclaimer {
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: 1rem;
+}
+
+.placeholder {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

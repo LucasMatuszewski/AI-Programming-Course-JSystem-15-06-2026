@@ -1,11 +1,9 @@
-# Example prompt (dictated) to get detailed plan based on PRD and ADR
-
 I want you to create very detailed plan of work to create fully working proof of concept of our application.
-Implement both back end, front end, tests and follow all guidelines from your CLAUDE.md files.
+Implement both back end, front end, tests and follow all guidelines from your AGENTS.md files. 
 I want you to follow instructions and detailed documentation from:
 - Product Requirements Document for functional description,
 - Architecture Decision Records for architecture and implementation technical decisions,
-- Design guidelines to follow the design of our Silky brand
+- Design guidelines to follow the design of our brand
 
 You should provide exact context to specialized agents and orchestrate work of multiple subagents.
 You should not implement anything yourself. You are only orchestrator and manager.
@@ -18,16 +16,16 @@ You should, make matrix of dependencies between tasks and between agents, to coo
 Plan the tasks and every step in this process with information which task need to be finished first before we go to the next stage.
 
 Agent you should always use to delegate work to based on specialization:
-@"fe-developer (agent)"
-@"be-developer (agent)"
-@"qa-engineer (agent)"
+[@frontend-nextjs-developer](subagent://frontend-nextjs-developer) 
+[@e2e-qa-engineer](subagent://e2e-qa-engineer) 
+[@be-developer](subagent://be-developer) 
+ 
 
 Files you should use to create detailed plan of implementation of our PoC application:
-- @docs/PRD-Product-Requirements-Document.md
-- @docs/ADR/000-main-architecture.md
-- @docs/ADR/001-backend.md
-- @docs/ADR/002-frontend.md
-- @docs/design-guidelines.md
+[ADR](C:/Users/labuser/DEV/AI-Programming-Course-JSystem-15-06-2026/docs/ADR/) 
+[PRD-Product-Requirements-Document.md](C:/Users/labuser/DEV/AI-Programming-Course-JSystem-15-06-2026/docs/PRD-Product-Requirements-Document.md) 
+[design-guidelines.md](C:/Users/labuser/DEV/AI-Programming-Course-JSystem-15-06-2026/docs/design-guidelines.md) 
+
 
 You should provide exact context needed to every task for every subagent.
 But provide only required information for this specific task.
